@@ -1,0 +1,17 @@
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  min-height: 32px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+.sort-btn:hover,
+.sort-btn.active {
+  color: var(--text);
+}

@@ -1,0 +1,29 @@
+.news-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 820px;
+}
+.news-callout {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--demo-soft);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.news-callout svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--demo);
+}
+.news-callout strong {
+  color: var(--text);
+}
+.news-callout em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+}

@@ -1,0 +1,73 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 760px;
+}
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+.setting + .setting {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+.setting-text {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+.setting-text h3 {
+  font-size: var(--text-base);
+}
+.setting-text p {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.setting-note {
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.setting-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--demo-soft);
+  font-size: var(--text-sm);
+}
+.danger-zone {
+  border-color: color-mix(in srgb, var(--loss) 35%, var(--border));
+}
+.confirm {
+  padding: 0 var(--space-5) var(--space-5);
+  color: var(--text-muted);
+}
+.confirm ul {
+  margin: var(--space-2) 0 var(--space-4);
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+@media (max-width: 480px) {
+  .setting .segmented {
+    width: 100%;
+  }
+  .confirm-actions .btn {
+    flex: 1;
+  }
+}

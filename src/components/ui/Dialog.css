@@ -1,0 +1,107 @@
+.dialog-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+.dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  animation: dialog-fade var(--dur) var(--ease);
+}
+.dialog-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-2);
+  outline: none;
+}
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-2) var(--space-5);
+}
+.dialog-title {
+  font-size: var(--text-lg);
+}
+.dialog-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text-muted);
+}
+.dialog-close:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.dialog-center,
+.dialog-sheet {
+  align-items: center;
+}
+.dialog-center .dialog-panel,
+.dialog-sheet .dialog-panel {
+  max-width: 460px;
+  max-height: min(92dvh, 720px);
+  border-radius: var(--radius-lg);
+  overflow: auto;
+  animation: dialog-pop var(--dur) var(--ease);
+}
+
+.dialog-top {
+  align-items: flex-start;
+  padding: min(12vh, 96px) var(--space-4) var(--space-4);
+}
+.dialog-top .dialog-panel {
+  max-width: 600px;
+  max-height: min(70dvh, 560px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: dialog-pop var(--dur) var(--ease);
+}
+
+@media (max-width: 767px) {
+  .dialog-sheet {
+    align-items: flex-end;
+  }
+  .dialog-sheet .dialog-panel {
+    max-width: none;
+    max-height: 92dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: dialog-slide var(--dur) var(--ease);
+  }
+  .dialog-top {
+    padding: var(--space-3);
+  }
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+@keyframes dialog-slide {
+  from {
+    transform: translateY(100%);
+  }
+}

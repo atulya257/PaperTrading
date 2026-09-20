@@ -1,0 +1,60 @@
+.welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+  background:
+    radial-gradient(70% 90% at 0% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%),
+    var(--surface);
+}
+.welcome h2 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+}
+.welcome-copy p {
+  color: var(--text-muted);
+}
+.welcome-copy strong {
+  color: var(--text);
+}
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.welcome-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.welcome-steps li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.welcome-steps p {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.welcome-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  color: var(--on-brand);
+  font-weight: 800;
+  font-size: var(--text-sm);
+}
+@media (max-width: 800px) {
+  .welcome {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}

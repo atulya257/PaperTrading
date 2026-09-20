@@ -1,0 +1,49 @@
+.chart-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.chart-period-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.chart-period-label {
+  color: var(--text-faint);
+}
+.chart-skeleton {
+  height: 340px;
+}
+.chart-note {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.chart-retry {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 600;
+}
+.stock-chart .card-header {
+  flex-wrap: wrap;
+}
+@media (max-width: 1023px) {
+  .chart-skeleton {
+    height: 300px;
+  }
+}
+@media (max-width: 480px) {
+  .chart-skeleton {
+    height: 240px;
+  }
+  .stock-chart .card-actions {
+    width: 100%;
+  }
+}

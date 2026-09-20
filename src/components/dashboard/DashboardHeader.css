@@ -1,0 +1,25 @@
+.insights {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.insights li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.insights a {
+  color: var(--text);
+  font-weight: 700;
+}
+.insights a:hover {
+  color: var(--brand);
+}
+.insights strong {
+  color: var(--text);
+}

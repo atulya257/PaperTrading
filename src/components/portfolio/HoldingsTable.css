@@ -1,0 +1,22 @@
+.holdings .strong {
+  font-weight: 700;
+}
+.holdings-sort {
+  display: none;
+}
+.holdings-sort select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: var(--space-3);
+}
+@media (max-width: 640px) {
+  .holdings-sort {
+    display: block;
+  }
+}

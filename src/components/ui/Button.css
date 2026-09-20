@@ -1,0 +1,94 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: var(--text-base);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.btn:hover:not(:disabled) {
+  box-shadow: var(--shadow-1);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: none;
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-lg {
+  min-height: 52px;
+  padding: 0 var(--space-6);
+  font-size: var(--text-lg);
+}
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary {
+  background: var(--brand-gradient);
+  color: var(--on-brand);
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 18px rgba(45, 212, 191, 0.25);
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn-danger {
+  background: var(--loss-soft);
+  color: var(--loss);
+  border-color: color-mix(in srgb, var(--loss) 35%, transparent);
+}
+.btn-danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--loss) 22%, transparent);
+}
+
+.btn-spinner {
+  animation: btn-spin 0.8s linear infinite;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-gain {
+  background: var(--gain);
+  color: var(--on-gain);
+}
+.btn-loss {
+  background: var(--loss);
+  color: var(--on-loss);
+}
+.btn-gain:hover:not(:disabled),
+.btn-loss:hover:not(:disabled) {
+  filter: brightness(1.08);
+}

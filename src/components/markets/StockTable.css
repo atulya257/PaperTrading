@@ -1,0 +1,159 @@
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.stock-table th,
+.stock-table td {
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+}
+.stock-table thead th {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.cell-price,
+.cell-change,
+.cell-cap {
+  text-align: right !important;
+}
+.stock-table thead .cell-price .sort-btn,
+.stock-table thead .cell-change .sort-btn,
+.stock-table thead .cell-cap .sort-btn {
+  margin-left: auto;
+}
+
+.stock-row {
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.stock-row + .stock-row td,
+.stock-row + .stock-row th {
+  border-top: 1px solid var(--border);
+}
+.stock-row:hover {
+  background: var(--surface-2);
+}
+.cell-watch {
+  width: 56px;
+  padding-right: 0 !important;
+}
+.row-link {
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  justify-content: center;
+}
+.row-symbol {
+  font-weight: 700;
+}
+.row-company {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.cell-sector {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.cell-price {
+  font-weight: 600;
+}
+.cell-cap {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.cell-change .change {
+  justify-content: flex-end;
+}
+
+@media (max-width: 1100px) {
+  .cell-cap {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .cell-sector {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-wrap {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .stock-table,
+  .stock-table tbody {
+    display: block;
+  }
+  .stock-table thead {
+    display: none;
+  }
+  .stock-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'watch name price'
+      'watch name change';
+    align-items: center;
+    column-gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .stock-row + .stock-row td,
+  .stock-row + .stock-row th {
+    border-top: 0;
+  }
+  .stock-table th,
+  .stock-table td {
+    padding: 0;
+  }
+  .cell-watch {
+    grid-area: watch;
+    width: auto;
+  }
+  .cell-name {
+    grid-area: name;
+    min-width: 0;
+  }
+  .row-company {
+    max-width: none;
+  }
+  .cell-price {
+    grid-area: price;
+    display: block;
+  }
+  .cell-change {
+    grid-area: change;
+    display: block;
+  }
+  .cell-range,
+  .cell-sector,
+  .cell-cap {
+    display: none;
+  }
+}

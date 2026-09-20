@@ -1,0 +1,23 @@
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  opacity: 0;
+  animation:
+    skeleton-appear 0s linear 200ms forwards,
+    skeleton-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-appear {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

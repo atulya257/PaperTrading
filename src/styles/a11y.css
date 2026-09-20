@@ -1,0 +1,58 @@
+
+main[tabindex='-1']:focus,
+h1[tabindex='-1']:focus {
+  outline: none;
+}
+
+@media (pointer: coarse) {
+  .segment,
+  .chip,
+  .sector-chip,
+  .recent-chip,
+  .sort-btn,
+  .toast-close,
+  .user-avatar,
+  .settings-link {
+    min-height: 44px;
+  }
+  .user-avatar,
+  .settings-link,
+  .toast-close {
+    min-width: 44px;
+  }
+  .chips {
+    padding-bottom: var(--space-3);
+  }
+}
+
+@media (forced-colors: active) {
+  .alloc-track,
+  .mix-track,
+  .range-track,
+  .mood-track,
+  .breadth-track {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+  .alloc-bar,
+  .mix-invested,
+  .breadth-up {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
+  .breadth-down {
+    background: GrayText;
+    forced-color-adjust: none;
+  }
+  .range-marker,
+  .mood-marker {
+    background: CanvasText;
+    border-color: Canvas;
+    forced-color-adjust: none;
+  }
+  .segment[aria-pressed='true'],
+  .sector-chip[aria-pressed='true'] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}

@@ -1,0 +1,37 @@
+.orders .strong {
+  font-weight: 700;
+}
+.order-time {
+  display: block;
+  white-space: nowrap;
+}
+.order-id {
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.side-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.side-buy {
+  background: var(--gain-soft);
+  color: var(--gain);
+}
+.side-sell {
+  background: var(--loss-soft);
+  color: var(--loss);
+}
+
+@media (max-width: 640px) {
+  .order-time {
+    white-space: normal;
+  }
+  .order-when {
+    text-align: right;
+  }
+}

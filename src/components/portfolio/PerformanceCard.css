@@ -1,0 +1,41 @@
+.perf-title {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.perf-change {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.perf-range-label {
+  color: var(--text-faint);
+}
+.perf-skeleton {
+  height: 340px;
+}
+.perf-note {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.performance .card-header {
+  flex-wrap: wrap;
+}
+@media (max-width: 1023px) {
+  .perf-skeleton {
+    height: 300px;
+  }
+}
+@media (max-width: 480px) {
+  .perf-skeleton {
+    height: 240px;
+  }
+  .performance .card-actions {
+    width: 100%;
+  }
+}

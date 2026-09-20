@@ -1,0 +1,101 @@
+.tabnav {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 19;
+  height: var(--tabbar-h);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabnav-list {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 100%;
+  padding: 0 var(--space-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tabnav-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-link {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-5);
+  color: var(--text-faint);
+  font-size: var(--text-base);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease);
+}
+.tab-link::before {
+  content: '';
+  position: absolute;
+  inset: 8px 4px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+  z-index: -1;
+}
+.tab-link::after {
+  content: '';
+  position: absolute;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--brand-gradient);
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.55);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--dur) var(--ease-out);
+}
+.tab-link:hover {
+  color: var(--text);
+}
+.tab-link:hover::before {
+  opacity: 1;
+}
+.tab-link.active {
+  color: var(--text);
+  font-weight: 600;
+}
+.tab-link.active::before {
+  opacity: 0;
+}
+.tab-link.active::after {
+  transform: scaleX(1);
+}
+.tab-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -4px;
+  border-radius: var(--radius-sm);
+}
+.tabnav-list {
+  isolation: isolate;
+}
+
+@media (max-width: 899px) {
+  .tabnav-list {
+    justify-content: flex-start;
+    padding: 0 var(--space-3);
+  }
+  .tab-link {
+    padding: 0 var(--space-4);
+  }
+  .tab-link::after {
+    left: var(--space-4);
+    right: var(--space-4);
+  }
+}

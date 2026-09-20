@@ -1,0 +1,41 @@
+.watch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-faint);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.watch-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.watch-btn.watched {
+  color: var(--demo);
+}
+.watch-btn.with-label {
+  width: auto;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+}
+.watch-btn svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.watch-btn.watched svg {
+  animation: star-pop 320ms var(--ease-out);
+}
+.watch-btn:active svg {
+  transform: scale(0.85);
+}
+@keyframes star-pop {
+  40% {
+    transform: scale(1.3) rotate(-8deg);
+  }
+}

@@ -1,0 +1,81 @@
+:root {
+  color-scheme: dark;
+
+  --bg: #0a101d;
+  --bg-elevated: #0e1526;
+  --surface: #121b2f;
+  --surface-2: #18243b;
+  --surface-3: #1f2d49;
+  --border: #22304c;
+  --border-strong: #31435f;
+
+  --text: #e9eef8;
+  --text-muted: #b0bbd0;
+  --text-faint: #96a3ba;
+
+  --brand: #2dd4bf;
+  --brand-2: #a3e635;
+  --brand-gradient: linear-gradient(135deg, #2dd4bf 0%, #a3e635 100%);
+  --brand-soft: rgba(45, 212, 191, 0.14);
+  --on-brand: #04201c;
+
+  --gain: #34d399;
+  --gain-soft: rgba(52, 211, 153, 0.14);
+  --on-gain: #04160f;
+  --loss: #fb7185;
+  --loss-soft: rgba(251, 113, 133, 0.14);
+  --on-loss: #1f050b;
+  --flat: var(--text-muted);
+  --demo: #fbbf24;
+  --demo-soft: rgba(251, 191, 36, 0.14);
+  --info: #60a5fa;
+
+  --focus: #7dd3fc;
+  --overlay: rgba(4, 8, 16, 0.66);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 12px 32px rgba(0, 0, 0, 0.42);
+  --glow-brand: 0 0 0 3px rgba(45, 212, 191, 0.16);
+}
+
+:root {
+  --font-ui: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Manrope Variable', 'Inter Variable', system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2.125rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --topbar-h: 76px;
+  --tabbar-h: 54px;
+  --content-max: 1280px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 899px) {
+  :root {
+    --topbar-h: 68px;
+    --tabbar-h: 50px;
+  }
+}

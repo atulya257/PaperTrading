@@ -1,0 +1,27 @@
+.loader {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  color: var(--text-muted);
+}
+.loader-mark {
+  animation: loader-pulse 1.4s ease-in-out infinite;
+}
+.loader-label {
+  font-size: var(--text-sm);
+}
+@keyframes loader-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
