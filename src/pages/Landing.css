@@ -11,6 +11,23 @@
   overflow: hidden;
   isolation: isolate;
 }
+.landing-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-5) 0;
+}
+.landing-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 .landing-brand {
   container-type: inline-size;
   width: 100%;
@@ -144,23 +161,10 @@
   gap: var(--space-5);
 }
 .step {
-  position: relative;
-  padding-top: var(--space-5);
-  border-top: 2px solid var(--border-strong);
-}
-.step-number {
-  position: absolute;
-  top: -15px;
-  left: 0;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--brand-gradient);
-  color: var(--on-brand);
-  font-weight: 800;
-  font-size: var(--text-sm);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 }
 .step h3 {
   font-size: var(--text-lg);
@@ -218,6 +222,7 @@
 }
 
 @media (max-width: 767px) {
+  .landing-nav,
   .landing-brand,
   .hero,
   .section,
@@ -228,9 +233,6 @@
   .honesty-grid {
     grid-template-columns: 1fr;
   }
-  .steps {
-    gap: var(--space-6);
-  }
   .hero-actions .btn {
     flex: 1 1 100%;
   }
@@ -239,5 +241,20 @@
 @media (max-width: 560px) {
   .features {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .landing-nav {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+  }
+  .landing-nav-actions {
+    gap: 0;
+    margin-left: auto;
+  }
+  .landing-nav-actions .btn {
+    padding-inline: var(--space-3);
+    font-size: var(--text-sm);
   }
 }

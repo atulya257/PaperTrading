@@ -30,6 +30,7 @@ export function PublicOnly() {
   const location = useLocation()
 
   if (status === 'loading') return <FullScreenLoader label="Loading…" />
-  if (status === 'authenticated') return <Navigate to={safeRedirectPath(location.state?.from)} replace />
+  // The landing navbar links here with allowAuthenticated so signed-in users can still open these pages.
+  if (status === 'authenticated' && !location.state?.allowAuthenticated) return <Navigate to={safeRedirectPath(location.state?.from)} replace />
   return <Outlet />
 }

@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthLayout from '../components/layout/AuthLayout.jsx'
 import Button from '../components/ui/Button.jsx'
 import TextField from '../components/ui/TextField.jsx'
 import { AUTH_ERRORS } from '../services/authService.js'
 import { useAuth } from '../context/AuthContext.jsx'
+import { safeRedirectPath } from '../components/routing/Guards.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 
 export default function Signup() {
@@ -17,14 +18,21 @@ export default function Signup() {
   const [busy, setBusy] = useState(false)
   const nameRef = useRef(null)
   const emailRef = useRef(null)
+  const submitting = useRef(false)
+  const navigate = useNavigate()
 
   async function onSubmit(e) {
     e.preventDefault()
+    if (submitting.current) return
+    submitting.current = true
     setBusy(true)
     setError(null)
     const result = await signup({ name, email })
-    if (!result.ok) {
+    if (result.ok) {
+      navigate(safeRedirectPath(location.state?.from), { replace: true })
+    } else {
       setError(result.error)
+      submitting.current = false
       setBusy(false)
       ;(result.error.field === 'name' ? nameRef : emailRef).current?.focus()
     }
@@ -38,7 +46,7 @@ export default function Signup() {
       subtitle="You will start with ₹10,00,000 of virtual cash."
       footer={
         <>
-          Already have an account? <Link to="/login">Log in</Link>
+          Already have an account? <Link to="/login" state={{ allowAuthenticated: true }}>Log in</Link>
         </>
       }
     >
@@ -69,7 +77,7 @@ export default function Signup() {
         />
         {error?.code === AUTH_ERRORS.EMAIL_TAKEN && (
           <p className="auth-alert">
-            <Link to="/login" className="auth-link">
+            <Link to="/login" state={{ allowAuthenticated: true }} className="auth-link">
               Log in with this email
             </Link>{' '}
             to continue with that account.
@@ -81,7 +89,10 @@ export default function Signup() {
       </form>
 
       <div className="auth-divider">or</div>
-      <Button variant="secondary" size="lg" block onClick={() => guestLogin()}>
+      <Button variant="secondary" size="lg" block disabled={busy} onClick={async () => {
+          await guestLogin()
+          navigate('/dashboard', { replace: true })
+        }}>
         Try demo instantly
       </Button>
     </AuthLayout>

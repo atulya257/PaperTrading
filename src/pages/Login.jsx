@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthLayout from '../components/layout/AuthLayout.jsx'
 import Button from '../components/ui/Button.jsx'
 import TextField from '../components/ui/TextField.jsx'
 import { AUTH_ERRORS } from '../services/authService.js'
 import { useAuth } from '../context/AuthContext.jsx'
+import { safeRedirectPath } from '../components/routing/Guards.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 
 export default function Login() {
@@ -14,14 +15,22 @@ export default function Login() {
   const [error, setError] = useState(null)
   const [busy, setBusy] = useState(false)
   const emailRef = useRef(null)
+  const submitting = useRef(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   async function onSubmit(e) {
     e.preventDefault()
+    if (submitting.current) return
+    submitting.current = true
     setBusy(true)
     setError(null)
     const result = await login({ email })
-    if (!result.ok) {
+    if (result.ok) {
+      navigate(safeRedirectPath(location.state?.from), { replace: true })
+    } else {
       setError(result.error)
+      submitting.current = false
       setBusy(false)
       emailRef.current?.focus()
     }
@@ -33,7 +42,7 @@ export default function Login() {
       subtitle="Welcome back. Pick up where you left off."
       footer={
         <>
-          New to TradeLab? <Link to="/signup">Create a demo account</Link>
+          Don't have an account? <Link to="/signup" state={{ allowAuthenticated: true }}>Sign up</Link>
         </>
       }
     >
@@ -54,7 +63,7 @@ export default function Login() {
         {error?.code === AUTH_ERRORS.NOT_FOUND && (
           <p className="auth-alert">
             Accounts only exist in the browser they were created in.{' '}
-            <Link to="/signup" state={{ email }} className="auth-link">
+            <Link to="/signup" state={{ email, allowAuthenticated: true }} className="auth-link">
               Create one with this email
             </Link>
             .
@@ -66,7 +75,10 @@ export default function Login() {
       </form>
 
       <div className="auth-divider">or</div>
-      <Button variant="secondary" size="lg" block onClick={() => guestLogin()}>
+      <Button variant="secondary" size="lg" block disabled={busy} onClick={async () => {
+          await guestLogin()
+          navigate('/dashboard', { replace: true })
+        }}>
         Try demo instantly
       </Button>
     </AuthLayout>

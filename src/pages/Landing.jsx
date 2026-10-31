@@ -31,7 +31,7 @@ const buildFeatures = (stockCount, sectorCount) => [
 ]
 
 const STEPS = [
-  { title: 'Start with ₹10,00,000', text: 'Create a demo account, or jump straight in as a guest.' },
+  { title: 'Start with ₹10,00,000', text: 'Create a free demo account, or jump straight in as a guest.' },
   { title: 'Find and analyse a stock', text: 'Browse the simulated market, open a chart and compare periods.' },
   { title: 'Buy, sell and learn', text: 'Watch your holdings, P&L and orders update as prices move.' },
 ]
@@ -54,6 +54,20 @@ export default function Landing() {
 
   return (
     <div className="landing">
+      <header className="landing-nav">
+        <nav className="landing-nav-actions" aria-label="Account">
+          <Button to="/dashboard" variant="ghost">
+            Open Dashboard
+          </Button>
+          <Button to="/login" state={{ allowAuthenticated: true }} variant="ghost">
+            Login
+          </Button>
+          <Button to="/signup" state={{ allowAuthenticated: true }}>
+            Sign Up
+          </Button>
+        </nav>
+      </header>
+
       <div className="landing-brand" aria-hidden="true">
         <span>TradeLab</span>
       </div>
@@ -77,11 +91,11 @@ export default function Landing() {
                 </Button>
               ) : (
                 <>
-                  <Button size="lg" onClick={tryDemo} loading={busy}>
-                    Try demo instantly
+                  <Button to="/signup" size="lg">
+                    Create free account
                   </Button>
-                  <Button to="/signup" size="lg" variant="secondary">
-                    Create account
+                  <Button size="lg" variant="secondary" onClick={tryDemo} loading={busy}>
+                    Try demo instantly
                   </Button>
                 </>
               )}
@@ -114,9 +128,8 @@ export default function Landing() {
             How it works
           </h2>
           <ol className="steps">
-            {STEPS.map((step, i) => (
+            {STEPS.map((step) => (
               <li key={step.title} className="step">
-                <span className="step-number num">{i + 1}</span>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
               </li>

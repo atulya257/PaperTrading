@@ -44,9 +44,11 @@ export async function signup({ name, email }) {
   const cleanName = String(name ?? '').trim().replace(/\s+/g, ' ')
   const cleanEmail = normalizeEmail(email)
 
+  if (!cleanName) return fail(AUTH_ERRORS.INVALID_NAME, 'name', 'Enter your name.')
   if (cleanName.length < NAME_MIN || cleanName.length > NAME_MAX) {
     return fail(AUTH_ERRORS.INVALID_NAME, 'name', `Enter a name between ${NAME_MIN} and ${NAME_MAX} characters.`)
   }
+  if (!cleanEmail) return fail(AUTH_ERRORS.INVALID_EMAIL, 'email', 'Enter your email address.')
   if (!EMAIL_PATTERN.test(cleanEmail)) {
     return fail(AUTH_ERRORS.INVALID_EMAIL, 'email', 'Enter a valid email address, like you@example.com.')
   }
@@ -63,6 +65,7 @@ export async function signup({ name, email }) {
 
 export async function login({ email }) {
   const cleanEmail = normalizeEmail(email)
+  if (!cleanEmail) return fail(AUTH_ERRORS.INVALID_EMAIL, 'email', 'Enter your email address.')
   if (!EMAIL_PATTERN.test(cleanEmail)) {
     return fail(AUTH_ERRORS.INVALID_EMAIL, 'email', 'Enter a valid email address, like you@example.com.')
   }
