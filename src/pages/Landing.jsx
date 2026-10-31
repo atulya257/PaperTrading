@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BarChart3, Calculator, HardDrive, Radio } from 'lucide-react'
+import { BarChart3, Calculator, Radio, ShieldCheck } from 'lucide-react'
 import Button from '../components/ui/Button.jsx'
 import MarketPreview from '../components/landing/MarketPreview.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -24,9 +24,9 @@ const buildFeatures = (stockCount, sectorCount) => [
     text: `Browse ${stockCount} demo stocks across ${sectorCount} sectors, study the chart, keep a watchlist and place instant buy and sell orders.`,
   },
   {
-    icon: HardDrive,
-    title: 'Private by design',
-    text: 'Everything is stored in your own browser. No account server, no password, no real money and no broker connection.',
+    icon: ShieldCheck,
+    title: 'Secure accounts',
+    text: 'Sign up with an email and password. Passwords are stored only as hashes, and an account locks after repeated wrong passwords. No real money and no broker connection.',
   },
 ]
 
@@ -147,7 +147,7 @@ export default function Landing() {
               <ul>
                 <li>A learning tool with virtual money</li>
                 <li>A simulated market driven by a mathematical model</li>
-                <li>A demo: your data lives only in this browser</li>
+                <li>A demo: your login is on the TradeLab server, your portfolio is saved in this browser</li>
               </ul>
             </div>
             <div>

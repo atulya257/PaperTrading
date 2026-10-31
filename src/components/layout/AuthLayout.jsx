@@ -10,13 +10,13 @@ const POINTS = [
   { icon: ShieldCheck, text: 'No real money, no broker, no risk' },
 ]
 
-export function DemoAuthNotice() {
+export function AuthNotice() {
   return (
     <p className="auth-notice">
       <Info size={16} aria-hidden="true" />
       <span>
-        <strong>Demo sign-in.</strong> There are no passwords: accounts are stored only in this browser and this is not
-        secure authentication.
+        <strong>Secure sign-in.</strong> Your account is kept on the TradeLab server and your password is stored only as a
+        BCrypt hash. All money in TradeLab is virtual.
       </span>
     </p>
   )
@@ -49,7 +49,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
           <h1>{title}</h1>
           {subtitle && <p className="auth-subtitle">{subtitle}</p>}
           {children}
-          <DemoAuthNotice />
+          <AuthNotice />
         </div>
         {footer && <p className="auth-footer">{footer}</p>}
       </main>

@@ -3,9 +3,13 @@ package com.tradelab.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tradelab.model.Account;
+import com.tradelab.model.AppUser;
+import com.tradelab.model.LoginAttempt;
 import com.tradelab.model.OrderSide;
 import com.tradelab.model.TradeOrder;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,6 +23,12 @@ class RepositoryTest {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    private LoginAttemptRepository loginAttemptRepository;
 
     @Test
     void saveFindUpdateAndDeleteAccount() {
@@ -49,5 +59,22 @@ class RepositoryTest {
         assertThat(orderRepository.findByAccountId(account.getId()))
                 .extracting(TradeOrder::getSymbol).containsExactlyInAnyOrder("TCS", "ITC");
         assertThat(orderRepository.findByAccountId(other.getId())).hasSize(1);
+    }
+
+    @Test
+    void userAndLoginAttemptQueries() {
+        Account account = accountRepository.save(new Account("Atulya", new BigDecimal("1000000.00")));
+        appUserRepository.save(new AppUser("atulya@example.com", "Atulya", "hash", false, account));
+        loginAttemptRepository.save(new LoginAttempt("atulya@example.com", false));
+        loginAttemptRepository.save(new LoginAttempt("atulya@example.com", false));
+        loginAttemptRepository.save(new LoginAttempt("atulya@example.com", true));
+
+        assertThat(appUserRepository.findByEmail("atulya@example.com")).isPresent();
+        assertThat(appUserRepository.existsByEmailAndAccountId("atulya@example.com", account.getId())).isTrue();
+        assertThat(appUserRepository.existsByEmailAndAccountId("atulya@example.com", account.getId() + 1)).isFalse();
+        Instant tenMinutesAgo = Instant.now().minus(10, ChronoUnit.MINUTES);
+        assertThat(loginAttemptRepository.countByEmailAndSuccessfulFalseAndAttemptedAtAfter("atulya@example.com", tenMinutesAgo))
+                .isEqualTo(2);
+        assertThat(loginAttemptRepository.findByEmailOrderByAttemptedAtDesc("atulya@example.com")).hasSize(3);
     }
 }

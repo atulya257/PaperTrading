@@ -64,7 +64,7 @@ export default function Settings() {
         <div className="setting">
           <div className="setting-text">
             <h3>{user.isGuest ? 'Guest demo account' : user.name}</h3>
-            <p>{user.isGuest ? 'Not tied to an email.' : user.email}</p>
+            <p>{user.isGuest ? 'Not tied to an email. A guest login ends when you log out.' : user.email}</p>
           </div>
           <Button variant="secondary" onClick={signOut}>
             Sign out

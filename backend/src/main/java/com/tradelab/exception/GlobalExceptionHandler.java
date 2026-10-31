@@ -1,5 +1,6 @@
 package com.tradelab.exception;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessRuleException.class)
     public ResponseEntity<Map<String, String>> handleBusinessRule(BusinessRuleException e) {
-        return error(HttpStatus.BAD_REQUEST, e.getCode(), e.getMessage());
+        ResponseEntity<Map<String, String>> response = error(HttpStatus.BAD_REQUEST, e.getCode(), e.getMessage());
+        if (e.getField() != null) {
+            response.getBody().put("field", e.getField());
+        }
+        return response;
+    }
+
+    @ExceptionHandler(LoginFailedException.class)
+    public ResponseEntity<Map<String, String>> handleLoginFailed(LoginFailedException e) {
+        return error(e.getStatus(), e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -34,6 +44,9 @@ public class GlobalExceptionHandler {
     }
 
     private static ResponseEntity<Map<String, String>> error(HttpStatus status, String code, String message) {
-        return ResponseEntity.status(status).body(Map.of("code", code, "message", message));
+        Map<String, String> body = new LinkedHashMap<>();
+        body.put("code", code);
+        body.put("message", message);
+        return ResponseEntity.status(status).body(body);
     }
 }

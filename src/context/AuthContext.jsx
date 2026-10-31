@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
     let cancelled = false
     authService.getSession().then((u) => !cancelled && apply(u))
     const onStorage = (e) => {
-      if (e.key === STORAGE_KEYS.session || e.key === STORAGE_KEYS.users) {
+      if (e.key === STORAGE_KEYS.session) {
         authService.getSession().then((u) => !cancelled && apply(u))
       }
     }
