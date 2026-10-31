@@ -15,8 +15,8 @@ export function AuthNotice() {
     <p className="auth-notice">
       <Info size={16} aria-hidden="true" />
       <span>
-        <strong>Secure sign-in.</strong> Your account is kept on the TradeLab server and your password is stored only as a
-        BCrypt hash. All money in TradeLab is virtual.
+        <strong>Secure sign-in.</strong> Your account is kept by the TradeLab User Service and your password is stored
+        only as a BCrypt hash. All money in TradeLab is virtual.
       </span>
     </p>
   )

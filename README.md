@@ -35,11 +35,11 @@ It allows users to practice buying and selling stocks using virtual money withou
 
 ## How to Run
 
-Start the backend first, because login and signup need it:
+The app talks to two Spring Boot microservices (see `services/README.md`). Start them first:
 
 ```bash
-cd backend
-./mvnw spring-boot:run      # Windows: .\mvnw.cmd spring-boot:run
+cd services/stock-service && ./mvnw spring-boot:run      # port 8081, H2
+cd services/user-service  && ./mvnw spring-boot:run      # port 8082, MySQL (set MYSQL_PASSWORD first)
 ```
 
 Then start the React app:
@@ -58,4 +58,4 @@ npm install
 npm run dev
 ```
 
-Demo login: `demo@tradelab.com` / `Demo@1234`. See `backend/README.md` for the API, the H2 console and the tests.
+Without the services the app still opens with its built-in stock list and the "Try demo instantly" guest. The original single backend from Activities 4 and 5 is in `backend/` (see `backend/README.md`).

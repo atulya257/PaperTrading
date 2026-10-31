@@ -1,0 +1,20 @@
+### All stocks
+GET http://localhost:8081/api/stocks
+
+### One stock
+GET http://localhost:8081/api/stocks/RELIANCE
+
+### Stocks in one sector
+GET http://localhost:8081/api/stocks?sector=Banking
+
+### Add a new stock
+POST http://localhost:8081/api/stocks
+Content-Type: application/json
+
+{
+  "symbol": "ZOMATO",
+  "name": "Zomato",
+  "sector": "Consumer",
+  "price": 215.50,
+  "description": "Food delivery and quick-commerce platform."
+}

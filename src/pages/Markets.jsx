@@ -7,6 +7,7 @@ import Button from '../components/ui/Button.jsx'
 import EmptyState from '../components/ui/EmptyState.jsx'
 import { useMarketSnapshot, useStocks } from '../hooks/useMarketData.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
+import { useMarket } from '../context/MarketContext.jsx'
 import { filterStocks, sortStocks, toggleSort } from '../utils/search.js'
 import './Markets.css'
 
@@ -22,6 +23,7 @@ export default function Markets() {
   usePageTitle('Markets')
   const stocks = useStocks()
   const { quotes } = useMarketSnapshot()
+  const catalogSource = useMarket().getCatalogSource?.()
   const [query, setQuery] = useState('')
   const [sector, setSector] = useState('All')
   const [sort, setSort] = useState({ key: 'marketCap', dir: 'desc' })
@@ -98,7 +100,12 @@ export default function Markets() {
         ) : (
           <StockTable stocks={visible} sort={sort} onSort={onSort} />
         )}
-        <p className="markets-foot">Demo prices — not real market data.</p>
+        <p className="markets-foot">
+          Demo prices — not real market data.{' '}
+          {catalogSource === 'stock-service'
+            ? `${stocks.length} stocks loaded from the TradeLab Stock Service.`
+            : 'The Stock Service is not running, so the built-in stock list is shown.'}
+        </p>
       </section>
     </div>
   )

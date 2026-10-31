@@ -51,9 +51,11 @@ export function createDemoMarketProvider({
   key = STORAGE_KEYS.market,
   seed,
   writerId = defaultWriterId(),
+  stocks = STOCKS,
+  catalogSource = 'built-in',
 } = {}) {
-  const sim = buildSimMeta(STOCKS)
-  const publicStocks = STOCKS.map(toPublicStock)
+  const sim = buildSimMeta(stocks)
+  const publicStocks = stocks.map(toPublicStock)
   const validate = (d) => isValidMarketState(d, sim)
 
   let state
@@ -71,7 +73,7 @@ export function createDemoMarketProvider({
   function ensureBase(endKey) {
     if (base.endKey === endKey) return
     const map = new Map()
-    for (const s of STOCKS) map.set(s.symbol, generateBaseHistory(s, s.basePrice, endKey))
+    for (const s of stocks) map.set(s.symbol, generateBaseHistory(s, s.basePrice, endKey))
     base = { endKey, map }
   }
 
@@ -88,7 +90,7 @@ export function createDemoMarketProvider({
       sessionDate,
       baseEndDate,
       sim,
-      base: Object.fromEntries(STOCKS.map((x) => [x.symbol, base.map.get(x.symbol)])),
+      base: Object.fromEntries(stocks.map((x) => [x.symbol, base.map.get(x.symbol)])),
     })
     for (let i = 1; i <= WARMUP_TICKS; i++) stepMarket(s, sim, startTime + i * tickMs)
     s.lastTickAt = t
@@ -322,6 +324,8 @@ export function createDemoMarketProvider({
 
   return {
     getStocks: () => publicStocks,
+    /** Where the stock list came from: 'stock-service' or the 'built-in' fallback. */
+    getCatalogSource: () => catalogSource,
     getSnapshot: () => snapshot,
     getQuote: (symbol) => snapshot.quotes[symbol],
     subscribe(fn) {
