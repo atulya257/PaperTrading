@@ -21,7 +21,7 @@ export const ACCOUNT_LIMITS = {
 }
 
 export const DEMO_LABEL = 'Simulated market'
-export const DEMO_DISCLAIMER = 'Demo price — not real market data. No real money or broker is involved.'
+export const DEMO_DISCLAIMER = 'Prices are simulated and no real money or broker is involved.'
 
 export const PERIODS = ['1D', '1W', '1M', '3M', '6M', '1Y']
 export const DEFAULT_PERIOD = '1M'

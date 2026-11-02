@@ -43,7 +43,7 @@ export default function Markets() {
         <div>
           <h1>Markets</h1>
           <p className="page-sub">
-            {stocks.length} demo stocks · prices are simulated and move while you watch
+            {stocks.length} stocks. Prices are simulated and update every second.
           </p>
         </div>
       </header>
@@ -101,7 +101,7 @@ export default function Markets() {
           <StockTable stocks={visible} sort={sort} onSort={onSort} />
         )}
         <p className="markets-foot">
-          Demo prices — not real market data.{' '}
+          Prices are simulated, not real market data.{' '}
           {catalogSource === 'stock-service'
             ? `${stocks.length} stocks loaded from the TradeLab Stock Service.`
             : 'The Stock Service is not running, so the built-in stock list is shown.'}

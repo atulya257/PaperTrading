@@ -79,7 +79,7 @@ export default function TradeTicket({ symbol, initialSide = SIDE.BUY, onExecuted
       const detail =
         order.realizedPnl === null
           ? `${formatQuantity(order.quantity)} × ${formatINR(order.price)} = ${formatINR(order.total)}`
-          : `${formatQuantity(order.quantity)} × ${formatINR(order.price)} = ${formatINR(order.total)} · P&L ${formatSignedINR(order.realizedPnl)}`
+          : `${formatQuantity(order.quantity)} × ${formatINR(order.price)} = ${formatINR(order.total)}, profit ${formatSignedINR(order.realizedPnl)}`
       toast.success(`${isBuy ? 'Bought' : 'Sold'} ${formatQuantity(order.quantity)} ${symbol}`, detail)
       setText('')
       onExecuted?.(order)
@@ -147,10 +147,10 @@ export default function TradeTicket({ symbol, initialSide = SIDE.BUY, onExecuted
         </div>
         <p id={hintId} className="ticket-hint">
           {isBuy
-            ? `Whole shares only · you can afford up to ${formatQuantity(maxBuy)}`
+            ? `You can afford up to ${formatQuantity(maxBuy)} shares.`
             : held > 0
-              ? `Whole shares only · you hold ${formatQuantity(held)}`
-              : `Whole shares only · you do not hold ${symbol}`}
+              ? `You hold ${formatQuantity(held)} shares.`
+              : `You don't own any ${symbol} yet.`}
         </p>
       </div>
 
@@ -207,7 +207,7 @@ export default function TradeTicket({ symbol, initialSide = SIDE.BUY, onExecuted
         disabled={!canReview && !confirming}
       >
         {confirming && preview?.ok
-          ? `Confirm ${verb.toUpperCase()} ${formatQuantity(quantity)} · ≈${formatINR(preview.total)}`
+          ? `Confirm: ${verb.toLowerCase()} ${formatQuantity(quantity)} for about ${formatINR(preview.total)}`
           : `Review ${verb.toLowerCase()} order`}
       </Button>
       {confirming ? (
@@ -217,7 +217,7 @@ export default function TradeTicket({ symbol, initialSide = SIDE.BUY, onExecuted
       ) : null}
 
       <p className="ticket-foot">
-        Fills instantly at the simulated price when you confirm. Demo only — no real money.{' '}
+        Orders fill straight away at the simulated price. No real money is used.{' '}
         <Link to="/orders">View orders</Link>
       </p>
     </form>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button.jsx'
 import MarketPreview from '../components/landing/MarketPreview.jsx'
+import TickerTape from '../components/markets/TickerTape.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useStocks } from '../hooks/useMarketData.js'
 import './Landing.css'
@@ -40,6 +41,7 @@ export default function Landing() {
           </Button>
         </nav>
       </header>
+      <TickerTape linked={false} />
 
       <main id="main">
         <section className="hero">

@@ -60,7 +60,7 @@ export default function PerformanceCard() {
     >
       {!hasSpan ? (
         <EmptyState icon={LineChart} title="Not enough history yet">
-          Your value is sampled as the market moves — the chart appears after a few seconds.
+          Your portfolio value is recorded as the market moves. The chart appears after a few seconds.
         </EmptyState>
       ) : (
         <Suspense fallback={<div className="perf-skeleton"><Skeleton height="100%" radius="12px" /></div>}>
@@ -69,7 +69,7 @@ export default function PerformanceCard() {
       )}
       {flat && hasSpan && (
         <p className="perf-note">
-          Your portfolio value only moves once you hold stocks — buy something and this line will follow the market.
+          The line stays flat while you only hold cash. Buy a stock and it will start following the market.
         </p>
       )}
       <ChartTable
@@ -79,7 +79,7 @@ export default function PerformanceCard() {
         format={formatINR}
         caption={`Portfolio value, ${rangeText}`}
       />
-      <p className="perf-note">Simulated prices — demo data. History is saved in this browser.</p>
+      <p className="perf-note">Prices are simulated. Your history is saved in this browser.</p>
     </Card>
   )
 }

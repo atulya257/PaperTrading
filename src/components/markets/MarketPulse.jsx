@@ -14,7 +14,7 @@ export default function MarketPulse() {
   return (
     <section className="pulse" aria-label="Market pulse">
       <div className="pulse-tile">
-        <p className="pulse-label">TradeLab Index</p>
+        <p className="pulse-label">TradeLab index</p>
         <p className="pulse-value num">{fmtIndex(index.value)}</p>
         <p className="pulse-sub">
           <ChangeBadge pct={index.changePct} /> <span className="pulse-faint num">{index.change >= 0 ? '+' : ''}{fmtIndex(index.change)} pts</span>
@@ -37,7 +37,7 @@ export default function MarketPulse() {
         <p className="pulse-label">Breadth</p>
         <p className="pulse-value num">
           <span className="gain">{breadth.advancers}</span>
-          <span className="pulse-faint"> up · </span>
+          <span className="pulse-faint"> up, </span>
           <span className="loss">{breadth.decliners}</span>
           <span className="pulse-faint"> down</span>
         </p>

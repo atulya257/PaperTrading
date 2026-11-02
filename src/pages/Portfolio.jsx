@@ -18,7 +18,7 @@ export default function Portfolio() {
       <header className="page-head">
         <h1>Portfolio</h1>
         <p className="page-sub">
-          Valued at simulated prices · <Link to="/orders">View orders</Link>
+          Valued at current simulated prices. <Link to="/orders">See your orders</Link>
         </p>
       </header>
 

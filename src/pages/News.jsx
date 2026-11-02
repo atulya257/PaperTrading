@@ -18,7 +18,7 @@ const FILTERS = [
 const EMPTY_TEXT = {
   ALL: 'No news yet.',
   MINE: 'No news for your stocks yet. Buy or watch more stocks to see more here.',
-  SIMULATED: 'No simulated headlines yet — one appears every few minutes while the market is running.',
+  SIMULATED: 'No simulated headlines yet. A new one appears every few minutes while the market is running.',
 }
 
 export default function News() {
@@ -39,7 +39,7 @@ export default function News() {
     <div className="news-page">
       <header className="page-head">
         <h1>News</h1>
-        <p className="page-sub">Market headlines — all of them are demo content.</p>
+        <p className="page-sub">Market headlines. These are sample stories, not real news.</p>
       </header>
 
       <div className="news-filters">

@@ -1,13 +1,15 @@
 .pulse {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 .pulse-tile {
   padding: var(--space-4) var(--space-5);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+}
+.pulse-tile + .pulse-tile {
+  border-left: 1px solid var(--border);
 }
 .pulse-label {
   font-size: var(--text-sm);
@@ -17,9 +19,9 @@
 .pulse-value {
   margin-top: 2px;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: 1.25;
 }
 .pulse-sub {
   display: flex;
@@ -73,13 +75,16 @@
   margin-left: auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 639px) {
   .pulse {
     grid-template-columns: 1fr;
-    gap: var(--space-3);
   }
   .pulse-tile {
     padding: var(--space-3) var(--space-4);
+  }
+  .pulse-tile + .pulse-tile {
+    border-left: 0;
+    border-top: 1px solid var(--border);
   }
 }
 @media (min-width: 640px) and (max-width: 900px) {

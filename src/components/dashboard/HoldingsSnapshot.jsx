@@ -31,7 +31,7 @@ export default function HoldingsSnapshot({ holdings }) {
               <Link to={`/stock/${encodeURIComponent(h.symbol)}`} className="mini-row">
                 <span className="mini-main">
                   <strong>{h.symbol}</strong>
-                  <span className="mini-sub num">{h.quantity} shares · {formatINR(h.marketValue)}</span>
+                  <span className="mini-sub num">{h.quantity} shares, {formatINR(h.marketValue)}</span>
                 </span>
                 <PnlText paise={h.unrealizedPnl} pct={h.unrealizedPnlPct} />
               </Link>

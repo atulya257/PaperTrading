@@ -116,7 +116,7 @@ function SearchPanel({ onClose }) {
                     <div className="palette-name">
                       <span className="palette-symbol">{stock.symbol}</span>
                       <span className="palette-company">
-                        {stock.name} · {stock.sector}
+                        {stock.name}, {stock.sector}
                       </span>
                     </div>
                     {quote && (

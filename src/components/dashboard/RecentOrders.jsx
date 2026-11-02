@@ -42,7 +42,7 @@ export default function RecentOrders() {
                     <strong>{o.symbol}</strong>
                   </span>
                   <span className="mini-sub num">
-                    {formatQuantity(o.quantity)} × {formatINR(o.price)} · {formatRelativeTime(o.createdAt, asOf)}
+                    {formatQuantity(o.quantity)} × {formatINR(o.price)}, {formatRelativeTime(o.createdAt, asOf)}
                   </span>
                 </span>
                 {o.realizedPnl === null ? <span className="mini-total num">{formatINR(o.total)}</span> : <PnlText paise={o.realizedPnl} />}

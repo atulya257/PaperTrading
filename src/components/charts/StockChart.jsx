@@ -68,7 +68,7 @@ export default function StockChart({ symbol, prevClose }) {
     >
       {body}
       {hasData && <ChartTable points={points} valueKey="price" valueLabel="Simulated price" format={formatINR} caption={`${symbol} simulated price, ${period}`} />}
-      <p className="chart-note">Simulated prices — demo data, not real market data.</p>
+      <p className="chart-note">Prices are simulated, not real market data.</p>
     </Card>
   )
 }

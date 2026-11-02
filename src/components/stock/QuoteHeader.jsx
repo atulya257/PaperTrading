@@ -28,7 +28,7 @@ export default function QuoteHeader({ stock, quote }) {
           <span className="quote-today">today</span>
         </p>
         <p className="quote-meta">
-          Simulated · previous close <span className="num">{formatINR(quote.prevClose)}</span>
+          Previous close <span className="num">{formatINR(quote.prevClose)}</span>
         </p>
       </div>
     </header>

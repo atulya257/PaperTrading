@@ -53,7 +53,7 @@ export default function Watchlist() {
           <p className="page-sub">
             {watched.length === 0
               ? 'Track stocks you are interested in.'
-              : `${watched.length} ${watched.length === 1 ? 'stock' : 'stocks'} · ${moves.up} up · ${moves.down} down today`}
+              : `${watched.length} ${watched.length === 1 ? 'stock' : 'stocks'}, ${moves.up} up and ${moves.down} down today`}
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function Watchlist() {
               <option value="">Add a stock…</option>
               {addable.map((s) => (
                 <option key={s.symbol} value={s.symbol}>
-                  {s.symbol} — {s.name}
+                  {s.symbol} ({s.name})
                 </option>
               ))}
             </select>
@@ -119,7 +119,7 @@ export default function Watchlist() {
       ) : (
         <StockTable stocks={rows} sort={sort} onSort={(key) => setSort((current) => toggleSort(current, key))} />
       )}
-      <p className="watch-foot">Demo prices — not real market data. Your watchlist is saved in this browser.</p>
+      <p className="watch-foot">Prices are simulated. Your watchlist is saved in this browser.</p>
     </div>
   )
 }

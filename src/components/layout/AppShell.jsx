@@ -4,6 +4,7 @@ import ErrorBoundary from '../ui/ErrorBoundary.jsx'
 import TopBar from './TopBar.jsx'
 import TabNav from './TabNav.jsx'
 import CommandSearch from './CommandSearch.jsx'
+import TickerTape from '../markets/TickerTape.jsx'
 import './AppShell.css'
 
 const isTypingTarget = (el) =>
@@ -34,6 +35,7 @@ export default function AppShell() {
       <div className="shell-body">
         <TopBar onSearch={openSearch} />
         <TabNav />
+        <TickerTape />
         <main id="main" className="shell-main" tabIndex={-1}>
           <ErrorBoundary variant="inline" resetKey={pathname}>
             <div key={pathname} className="page-enter">

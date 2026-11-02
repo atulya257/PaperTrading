@@ -23,7 +23,7 @@ import './StockDetail.css'
 export default function StockDetail() {
   const { symbol } = useParams()
   const stock = useStock(symbol)
-  usePageTitle(stock ? `${stock.symbol} · ${stock.name}` : 'Stock not found')
+  usePageTitle(stock ? `${stock.symbol} (${stock.name})` : 'Stock not found')
 
   if (!stock) {
     return (

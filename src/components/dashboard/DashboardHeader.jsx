@@ -33,7 +33,7 @@ export default function DashboardHeader({ portfolio }) {
               <strong className="num">{cashPct.toFixed(0)}%</strong> of your portfolio is cash
             </>
           ) : (
-            <>Your whole portfolio is cash — pick a stock to get started</>
+            <>You haven't bought anything yet. Pick a stock to get started.</>
           )}
         </li>
       </ul>

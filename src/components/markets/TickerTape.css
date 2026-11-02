@@ -1,0 +1,73 @@
+.ticker {
+  overflow: hidden;
+  background: #16212f;
+  color: #dfe6ef;
+  border-bottom: 1px solid #0f1822;
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll var(--ticker-duration, 90s) linear infinite;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker-row {
+  display: flex;
+  flex: none;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 9px var(--space-5);
+  border-right: 1px solid #2a3749;
+  white-space: nowrap;
+}
+a.ticker-item:hover .ticker-symbol {
+  text-decoration: underline;
+}
+.ticker-symbol {
+  font-weight: 600;
+  color: #ffffff;
+}
+.ticker-price {
+  color: #c3cddb;
+}
+.ticker-change.gain {
+  color: #4fd18b;
+}
+.ticker-change.loss {
+  color: #ff7b72;
+}
+.ticker-change.flat {
+  color: #9aa7b8;
+}
+.ticker-change span {
+  font-size: 0.7em;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* No automatic movement for people who prefer reduced motion: the tape just scrolls by hand. */
+@media (prefers-reduced-motion: reduce) {
+  .ticker {
+    overflow-x: auto;
+  }
+  .ticker-track {
+    animation: none;
+  }
+  .ticker-row[aria-hidden='true'] {
+    display: none;
+  }
+}
