@@ -29,11 +29,20 @@
 }
 
 .btn-primary {
-  background: var(--brand);
-  color: var(--on-brand);
+  background: var(--ink);
+  color: #ffffff;
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--brand-hover);
+  background: var(--ink-hover);
+}
+/* Main action on a dark background */
+.btn-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+.btn-accent:hover:not(:disabled) {
+  background: #f5bb5f;
 }
 
 .btn-secondary {

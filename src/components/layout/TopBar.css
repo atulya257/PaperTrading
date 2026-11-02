@@ -71,7 +71,7 @@
 }
 
 .topbar :focus-visible {
-  outline-color: #9cc0f5;
+  outline-color: var(--accent);
 }
 
 @media (max-width: 899px) {

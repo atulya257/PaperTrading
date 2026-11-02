@@ -1,6 +1,7 @@
 /*
-  TradeLab theme: a light, plain trading-app look.
-  Page in light grey, panels in white, dark slate text, one blue for actions,
+  TradeLab theme: a light trading-app look with a dark navy masthead.
+  Page in light grey, panels in white, navy for the header and main buttons,
+  blue for links, marigold as a small accent on dark backgrounds,
   and green/red used only for gains and losses.
 */
 :root {
@@ -30,6 +31,14 @@
   --header-text: #e6ebf2;
   --header-muted: #a9b5c4;
   --header-field: #2a3a50;
+  --header-line: #2c3c52;
+  --tape-bg: #131c28;
+
+  /* Navy for main buttons, marigold for highlights on the dark header */
+  --ink: #1d2a3b;
+  --ink-hover: #2c3e56;
+  --accent: #f0a83a;
+  --on-accent: #1b2430;
 
   --gain: #0e8048;
   --gain-soft: #e3f3ea;
@@ -51,7 +60,8 @@
 
 :root {
   --font-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: var(--font-ui);
+  /* Condensed Plex for page titles and big figures, like a price board */
+  --font-display: 'IBM Plex Sans Condensed', var(--font-ui);
 
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;

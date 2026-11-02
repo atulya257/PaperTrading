@@ -14,44 +14,59 @@
   padding-inline: var(--space-5);
 }
 
+/* Dark masthead: nav, ticker and hero read as one block */
+.landing-top,
+.hero-band {
+  background: var(--header-bg);
+  color: var(--header-text);
+}
+.landing-top :focus-visible,
+.hero-band :focus-visible {
+  outline-color: var(--accent);
+}
+
 .landing-nav {
   display: flex;
   justify-content: flex-end;
-  padding-top: var(--space-4);
-  padding-bottom: var(--space-4);
-}
-.landing-nav-actions {
-  display: flex;
   align-items: center;
   gap: var(--space-2);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+.landing-nav .btn-ghost {
+  color: var(--header-muted);
+}
+.landing-nav .btn-ghost:hover {
+  background: var(--header-field);
+  color: var(--header-text);
 }
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
   gap: var(--space-8);
-  align-items: start;
+  align-items: center;
   padding-top: var(--space-7);
   padding-bottom: var(--space-8);
 }
 .hero-name {
-  font-size: 3.25rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text);
+  font-size: 5rem;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #ffffff;
 }
 .hero-title {
   margin-top: var(--space-4);
   font-size: var(--text-2xl);
   font-weight: 500;
   line-height: 1.3;
-  color: var(--text);
-  max-width: 32ch;
+  color: #ffffff;
+  max-width: 28ch;
 }
 .hero-sub {
   margin-top: var(--space-4);
-  max-width: 56ch;
-  color: var(--text-muted);
+  max-width: 52ch;
+  color: var(--header-muted);
   font-size: var(--text-lg);
   line-height: 1.6;
 }
@@ -61,10 +76,21 @@
   gap: var(--space-3);
   margin-top: var(--space-6);
 }
+.hero-actions .btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border-color: #4a5d78;
+}
+.hero-actions .btn-secondary:hover:not(:disabled) {
+  background: var(--header-field);
+  border-color: #6a7f9c;
+}
 
 .section {
   padding-top: var(--space-7);
   padding-bottom: var(--space-7);
+}
+.section + .section {
   border-top: 1px solid var(--border);
 }
 .section-title {
@@ -144,7 +170,7 @@
     padding-bottom: var(--space-7);
   }
   .hero-name {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
   }
   .steps,
   .honesty-grid,
@@ -164,7 +190,7 @@
   .landing-footer {
     padding-inline: var(--space-4);
   }
-  .landing-nav-actions .btn {
+  .landing-nav .btn {
     padding-inline: var(--space-3);
   }
   .hero-title {

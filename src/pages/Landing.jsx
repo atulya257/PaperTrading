@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button.jsx'
-import MarketPreview from '../components/landing/MarketPreview.jsx'
+import MarketBoard from '../components/landing/MarketBoard.jsx'
 import TickerTape from '../components/markets/TickerTape.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useStocks } from '../hooks/useMarketData.js'
@@ -28,15 +28,15 @@ export default function Landing() {
 
   return (
     <div className="landing">
-      <header className="landing-nav">
-        <nav className="landing-nav-actions" aria-label="Account">
+      <header className="landing-top">
+        <nav className="landing-nav" aria-label="Account">
           <Button to="/dashboard" variant="ghost">
             Dashboard
           </Button>
           <Button to="/login" state={{ allowAuthenticated: true }} variant="ghost">
             Log in
           </Button>
-          <Button to="/signup" state={{ allowAuthenticated: true }}>
+          <Button to="/signup" state={{ allowAuthenticated: true }} variant="accent">
             Sign up
           </Button>
         </nav>
@@ -44,34 +44,36 @@ export default function Landing() {
       <TickerTape linked={false} />
 
       <main id="main">
-        <section className="hero">
-          <div className="hero-copy">
-            <h1 className="hero-name">TradeLab</h1>
-            <p className="hero-title">Practise trading Indian stocks with ₹10 lakh of pretend money.</p>
-            <p className="hero-sub">
-              Buy and sell {stocks.length} well-known NSE companies in a simulated market whose prices move while you
-              watch. Nothing you do here costs real money, so it is a safe place to learn how orders, holdings and
-              profit and loss work.
-            </p>
-            <div className="hero-actions">
-              {isAuthenticated ? (
-                <Button to="/dashboard" size="lg">
-                  Go to dashboard
-                </Button>
-              ) : (
-                <>
-                  <Button to="/signup" size="lg">
-                    Create an account
+        <div className="hero-band">
+          <section className="hero">
+            <div className="hero-copy">
+              <h1 className="hero-name">TradeLab</h1>
+              <p className="hero-title">Practise trading Indian stocks with ₹10 lakh of pretend money.</p>
+              <p className="hero-sub">
+                Buy and sell {stocks.length} well-known NSE companies in a simulated market whose prices move while you
+                watch. Nothing you do here costs real money, so it is a safe place to learn how orders, holdings and
+                profit and loss work.
+              </p>
+              <div className="hero-actions">
+                {isAuthenticated ? (
+                  <Button to="/dashboard" size="lg" variant="accent">
+                    Go to dashboard
                   </Button>
-                  <Button size="lg" variant="secondary" onClick={tryDemo} loading={busy}>
-                    Try it as a guest
-                  </Button>
-                </>
-              )}
+                ) : (
+                  <>
+                    <Button to="/signup" size="lg" variant="accent">
+                      Create an account
+                    </Button>
+                    <Button size="lg" variant="secondary" onClick={tryDemo} loading={busy}>
+                      Try it as a guest
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-          <MarketPreview />
-        </section>
+            <MarketBoard />
+          </section>
+        </div>
 
         <section className="section" aria-labelledby="features-title">
           <h2 id="features-title" className="section-title">

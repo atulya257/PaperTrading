@@ -1,5 +1,6 @@
 .page-head h1 {
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
+  line-height: 1.1;
 }
 .page-sub {
   margin-top: 2px;

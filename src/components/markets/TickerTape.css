@@ -1,8 +1,7 @@
 .ticker {
   overflow: hidden;
-  background: #16212f;
+  background: var(--tape-bg);
   color: #dfe6ef;
-  border-bottom: 1px solid #0f1822;
   font-size: var(--text-sm);
   line-height: 1;
 }
@@ -27,7 +26,7 @@
   align-items: baseline;
   gap: var(--space-2);
   padding: 9px var(--space-5);
-  border-right: 1px solid #2a3749;
+  border-right: 1px solid #253244;
   white-space: nowrap;
 }
 a.ticker-item:hover .ticker-symbol {

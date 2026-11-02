@@ -4,7 +4,7 @@
   gap: var(--space-6);
   align-items: center;
   background: var(--surface);
-  border-left: 3px solid var(--brand);
+  border-left: 3px solid var(--accent);
 }
 .welcome h2 {
   font-size: var(--text-xl);
@@ -46,8 +46,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid var(--brand);
-  color: var(--brand);
+  border: 1px solid var(--ink);
+  color: var(--ink);
   font-weight: 600;
   font-size: var(--text-sm);
 }
