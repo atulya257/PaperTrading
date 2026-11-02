@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Logo from '../components/layout/Logo.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import './NotFound.css'
@@ -9,7 +8,6 @@ export default function NotFound() {
   usePageTitle('Page not found')
   return (
     <main className="notfound" id="main">
-      <Logo />
       <p className="notfound-code num">404</p>
       <h1>This page does not exist</h1>
       <p className="notfound-text">

@@ -1,5 +1,4 @@
 import { Info, LineChart, Wallet, ShieldCheck } from 'lucide-react'
-import Logo from './Logo.jsx'
 import { DEMO_DISCLAIMER, INITIAL_CAPITAL } from '../../config/constants.js'
 import { formatINR } from '../../utils/format.js'
 import './AuthLayout.css'
@@ -26,7 +25,6 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
   return (
     <div className="auth">
       <aside className="auth-brand">
-        <Logo />
         <div className="auth-brand-body">
           <h2>Practice investing. Risk nothing.</h2>
           <ul className="auth-points">
@@ -42,9 +40,6 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
       </aside>
 
       <main className="auth-main" id="main">
-        <div className="auth-mobile-logo">
-          <Logo />
-        </div>
         <div className="auth-card">
           <h1>{title}</h1>
           {subtitle && <p className="auth-subtitle">{subtitle}</p>}

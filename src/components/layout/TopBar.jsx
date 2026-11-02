@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom'
 import { Search, Settings } from 'lucide-react'
-import Logo from './Logo.jsx'
 import UserMenu from './UserMenu.jsx'
 import { useAccount } from '../../context/AccountContext.jsx'
 import { formatINR } from '../../utils/format.js'
@@ -11,11 +10,9 @@ export default function TopBar({ onSearch }) {
 
   return (
     <header className="topbar">
-      <Logo to="/dashboard" />
-
       <button type="button" className="search-trigger" onClick={onSearch} aria-label="Search stocks">
         <Search size={17} aria-hidden="true" />
-        <span className="search-trigger-text">Search stocks</span>
+        <span className="search-trigger-text">Search stocks by name or symbol</span>
       </button>
 
       <div className="topbar-actions">

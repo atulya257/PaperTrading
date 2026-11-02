@@ -60,9 +60,6 @@
   gap: var(--space-5);
   padding: var(--space-6) var(--space-4);
 }
-.auth-mobile-logo {
-  display: none;
-}
 .auth-card {
   width: 100%;
   max-width: 420px;
@@ -143,8 +140,5 @@
   }
   .auth-brand {
     display: none;
-  }
-  .auth-mobile-logo {
-    display: block;
   }
 }

@@ -4,7 +4,7 @@
   z-index: 20;
   height: var(--topbar-h);
   display: grid;
-  grid-template-columns: auto minmax(0, 420px) 1fr;
+  grid-template-columns: minmax(0, 720px) 1fr;
   align-items: center;
   gap: var(--space-6);
   padding: 0 max(var(--space-5), calc((100vw - var(--content-max)) / 2 + var(--space-5)));
@@ -76,12 +76,11 @@
 
 @media (max-width: 899px) {
   .topbar {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     padding: 0 var(--space-4);
     gap: var(--space-3);
   }
-  .cash,
-  .topbar .logo-text {
+  .cash {
     display: none;
   }
 }
