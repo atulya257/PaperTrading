@@ -25,15 +25,16 @@ export default function MarketPreview() {
     <section className="preview" aria-label="Simulated market preview">
       <header className="preview-head">
         <div>
-          <p className="preview-eyebrow">TradeLab Index</p>
+          <p className="preview-eyebrow">TradeLab index</p>
           <p className="preview-index num">{index.value.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
         </div>
         <div className="preview-side">
           <ChangeBadge pct={index.changePct} />
-          <span className="preview-mood">Mood: {moodLabel}</span>
+          <span className="preview-mood">Market mood: {moodLabel}</span>
         </div>
       </header>
 
+      <p className="preview-caption">Biggest moves today</p>
       <ul className="preview-list">
         {movers.map((q) => (
           <li key={q.symbol} className="preview-row">

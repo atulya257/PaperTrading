@@ -1,16 +1,12 @@
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
   padding: var(--space-5);
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-1);
 }
 .card-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
@@ -27,14 +23,7 @@
 @media (max-width: 480px) {
   .card {
     padding: var(--space-4);
-    border-radius: var(--radius);
   }
-}
-
-.card-header {
-  flex-wrap: wrap;
-}
-@media (max-width: 480px) {
   .card-actions:has(> .segmented) {
     width: 100%;
   }

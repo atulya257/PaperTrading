@@ -13,8 +13,7 @@
 }
 .quote-symbol {
   font-size: var(--text-2xl);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 .quote-tag {
   padding: 3px 10px;
@@ -36,9 +35,8 @@
 .quote-price {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.02em;
 }
 .quote-change {
   display: flex;

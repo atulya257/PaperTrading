@@ -1,53 +1,65 @@
+/*
+  TradeLab theme: a light, plain trading-app look.
+  Page in light grey, panels in white, dark slate text, one blue for actions,
+  and green/red used only for gains and losses.
+*/
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --bg: #0a101d;
-  --bg-elevated: #0e1526;
-  --surface: #121b2f;
-  --surface-2: #18243b;
-  --surface-3: #1f2d49;
-  --border: #22304c;
-  --border-strong: #31435f;
+  --bg: #eef1f5;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f7fa;
+  --surface-3: #e8ecf1;
+  --border: #dfe4ea;
+  --border-strong: #c6ced8;
 
-  --text: #e9eef8;
-  --text-muted: #b0bbd0;
-  --text-faint: #96a3ba;
+  --text: #1b2430;
+  --text-muted: #4a5666;
+  --text-faint: #6b7686;
 
-  --brand: #2dd4bf;
-  --brand-2: #a3e635;
-  --brand-gradient: linear-gradient(135deg, #2dd4bf 0%, #a3e635 100%);
-  --brand-soft: rgba(45, 212, 191, 0.14);
-  --on-brand: #04201c;
+  --brand: #1f5fbf;
+  --brand-hover: #194f9f;
+  --brand-2: #1f5fbf;
+  --brand-gradient: #1f5fbf;
+  --brand-soft: #e7eefa;
+  --on-brand: #ffffff;
 
-  --gain: #34d399;
-  --gain-soft: rgba(52, 211, 153, 0.14);
-  --on-gain: #04160f;
-  --loss: #fb7185;
-  --loss-soft: rgba(251, 113, 133, 0.14);
-  --on-loss: #1f050b;
+  /* The dark header bar */
+  --header-bg: #1d2a3b;
+  --header-text: #e6ebf2;
+  --header-muted: #a9b5c4;
+  --header-field: #2a3a50;
+
+  --gain: #0e8048;
+  --gain-soft: #e3f3ea;
+  --on-gain: #ffffff;
+  --loss: #c8312a;
+  --loss-soft: #fbe7e5;
+  --on-loss: #ffffff;
   --flat: var(--text-muted);
-  --demo: #fbbf24;
-  --demo-soft: rgba(251, 191, 36, 0.14);
-  --info: #60a5fa;
+  --demo: #8a5a00;
+  --demo-soft: #fdf3dc;
+  --info: #1f5fbf;
 
-  --focus: #7dd3fc;
-  --overlay: rgba(4, 8, 16, 0.66);
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-2: 0 12px 32px rgba(0, 0, 0, 0.42);
-  --glow-brand: 0 0 0 3px rgba(45, 212, 191, 0.16);
+  --focus: #1f5fbf;
+  --overlay: rgba(20, 28, 40, 0.45);
+  --shadow-1: none;
+  --shadow-2: 0 8px 24px rgba(20, 28, 40, 0.14);
+  --glow-brand: 0 0 0 3px rgba(31, 95, 191, 0.18);
 }
 
 :root {
-  --font-ui: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Manrope Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
 
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
   --text-base: 0.9375rem;
   --text-lg: 1.0625rem;
   --text-xl: 1.25rem;
-  --text-2xl: 1.625rem;
-  --text-3xl: 2.125rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -58,24 +70,24 @@
   --space-7: 48px;
   --space-8: 64px;
 
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --radius-pill: 999px;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 6px;
+  --radius-pill: 4px;
 
-  --topbar-h: 76px;
-  --tabbar-h: 54px;
-  --content-max: 1280px;
+  --topbar-h: 60px;
+  --tabbar-h: 48px;
+  --content-max: 1200px;
 
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --dur-fast: 150ms;
-  --dur: 220ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: ease;
+  --dur-fast: 120ms;
+  --dur: 160ms;
+  --ease-out: ease-out;
 }
 
 @media (max-width: 899px) {
   :root {
-    --topbar-h: 68px;
-    --tabbar-h: 50px;
+    --topbar-h: 56px;
+    --tabbar-h: 46px;
   }
 }

@@ -1,24 +1,16 @@
-import { useId } from 'react'
 import { Link } from 'react-router-dom'
 import { APP_NAME } from '../../config/constants.js'
 import './Logo.css'
 
-export function LogoMark({ size = 28 }) {
-  const gradId = `tl-grad-${useId().replace(/:/g, '')}`
+export function LogoMark({ size = 26 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" className="logo-mark">
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0" stopColor="#2dd4bf" />
-          <stop offset="1" stopColor="#a3e635" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="9" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <rect width="32" height="32" rx="6" fill="#1f5fbf" />
       <path
-        d="M6.5 21l5.5-6.5 5 4 8-10"
+        d="M7 21l5.5-6 4.5 3.5L25 10"
         fill="none"
-        stroke={`url(#${gradId})`}
-        strokeWidth="3"
+        stroke="#ffffff"
+        strokeWidth="2.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

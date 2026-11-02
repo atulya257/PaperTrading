@@ -1,39 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BarChart3, Calculator, Radio, ShieldCheck } from 'lucide-react'
 import Button from '../components/ui/Button.jsx'
 import MarketPreview from '../components/landing/MarketPreview.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useStocks } from '../hooks/useMarketData.js'
 import './Landing.css'
 
-const buildFeatures = (stockCount, sectorCount) => [
-  {
-    icon: Radio,
-    title: 'A market that moves',
-    text: 'Prices tick in real time from a simulator with market, sector and stock-level movement so your portfolio value and P&L change while you watch.',
-  },
-  {
-    icon: Calculator,
-    title: 'Real portfolio maths',
-    text: 'Weighted average cost, realized and unrealized P&L, day P&L and allocation, calculated the way a broker would show them.',
-  },
-  {
-    icon: BarChart3,
-    title: 'Analyse, then trade',
-    text: `Browse ${stockCount} demo stocks across ${sectorCount} sectors, study the chart, keep a watchlist and place instant buy and sell orders.`,
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Secure accounts',
-    text: 'Sign up with an email and password. Passwords are stored only as hashes, and an account locks after repeated wrong passwords. No real money and no broker connection.',
-  },
-]
-
 const STEPS = [
-  { title: 'Start with ₹10,00,000', text: 'Create a free demo account, or jump straight in as a guest.' },
-  { title: 'Find and analyse a stock', text: 'Browse the simulated market, open a chart and compare periods.' },
-  { title: 'Buy, sell and learn', text: 'Watch your holdings, P&L and orders update as prices move.' },
+  { title: 'Start with ₹10,00,000', text: 'Create a free account, or try it as a guest without signing up.' },
+  { title: 'Find a stock', text: 'Browse the market, open a chart and see how the price moved over a day, a month or a year.' },
+  { title: 'Buy, sell and learn', text: 'Your holdings, profit and loss and order history update as prices move.' },
 ]
 
 export default function Landing() {
@@ -41,10 +17,7 @@ export default function Landing() {
   const navigate = useNavigate()
   const [busy, setBusy] = useState(false)
   const stocks = useStocks()
-  const features = useMemo(
-    () => buildFeatures(stocks.length, new Set(stocks.map((s) => s.sector)).size),
-    [stocks],
-  )
+  const sectorCount = new Set(stocks.map((s) => s.sector)).size
 
   async function tryDemo() {
     setBusy(true)
@@ -57,70 +30,75 @@ export default function Landing() {
       <header className="landing-nav">
         <nav className="landing-nav-actions" aria-label="Account">
           <Button to="/dashboard" variant="ghost">
-            Open Dashboard
+            Dashboard
           </Button>
           <Button to="/login" state={{ allowAuthenticated: true }} variant="ghost">
-            Login
+            Log in
           </Button>
           <Button to="/signup" state={{ allowAuthenticated: true }}>
-            Sign Up
+            Sign up
           </Button>
         </nav>
       </header>
 
-      <div className="landing-brand" aria-hidden="true">
-        <span>TradeLab</span>
-      </div>
-
       <main id="main">
         <section className="hero">
           <div className="hero-copy">
-            <h1>
-              Learn to trade the market.
-              <br />
-              <span className="hero-accent">Without risking a rupee.</span>
-            </h1>
+            <h1 className="hero-name">TradeLab</h1>
+            <p className="hero-title">Practise trading Indian stocks with ₹10 lakh of pretend money.</p>
             <p className="hero-sub">
-              TradeLab gives you ₹10,00,000 of virtual cash and a simulated stock market that moves in real time.
-              Practise investing, build a portfolio and track your profit and loss, no real money involved.
+              Buy and sell {stocks.length} well-known NSE companies in a simulated market whose prices move while you
+              watch. Nothing you do here costs real money, so it is a safe place to learn how orders, holdings and
+              profit and loss work.
             </p>
             <div className="hero-actions">
               {isAuthenticated ? (
                 <Button to="/dashboard" size="lg">
-                  Open dashboard
+                  Go to dashboard
                 </Button>
               ) : (
                 <>
                   <Button to="/signup" size="lg">
-                    Create free account
+                    Create an account
                   </Button>
                   <Button size="lg" variant="secondary" onClick={tryDemo} loading={busy}>
-                    Try demo instantly
+                    Try it as a guest
                   </Button>
                 </>
               )}
             </div>
           </div>
-          <div className="hero-visual">
-            <MarketPreview />
-          </div>
+          <MarketPreview />
         </section>
 
         <section className="section" aria-labelledby="features-title">
           <h2 id="features-title" className="section-title">
-            Everything you need to practise
+            What you can do
           </h2>
-          <ul className="features">
-            {features.map(({ icon: Icon, title, text }) => (
-              <li key={title} className="feature">
-                <span className="feature-icon">
-                  <Icon size={22} aria-hidden="true" />
-                </span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </li>
-            ))}
-          </ul>
+          <dl className="features">
+            <div>
+              <dt>Watch a live market</dt>
+              <dd>
+                Prices update every second across {sectorCount} sectors, from banks and IT to steel and FMCG. The
+                TradeLab index shows how the whole market is doing.
+              </dd>
+            </div>
+            <div>
+              <dt>Place buy and sell orders</dt>
+              <dd>Pick a quantity, check the total and confirm. Orders fill straight away at the current price.</dd>
+            </div>
+            <div>
+              <dt>Track your portfolio</dt>
+              <dd>
+                See your average buy price, today&apos;s change, and profit or loss on each holding, the way a real
+                broker app shows it.
+              </dd>
+            </div>
+            <div>
+              <dt>Keep a watchlist</dt>
+              <dd>Star the stocks you want to follow and check on them without buying anything.</dd>
+            </div>
+          </dl>
         </section>
 
         <section className="section" aria-labelledby="how-title">
@@ -139,23 +117,23 @@ export default function Landing() {
 
         <section className="section honesty" aria-labelledby="honest-title">
           <h2 id="honest-title" className="section-title">
-            What TradeLab is — and is not
+            Good to know
           </h2>
           <div className="honesty-grid">
             <div>
-              <h3>It is</h3>
+              <h3>TradeLab is</h3>
               <ul>
-                <li>A learning tool with virtual money</li>
-                <li>A simulated market driven by a mathematical model</li>
-                <li>A demo: your login is on the TradeLab server, your portfolio is saved in this browser</li>
+                <li>A practice tool that uses virtual money only</li>
+                <li>A simulated market; prices come from a model, not the NSE</li>
+                <li>Free to use, with your portfolio saved in your browser</li>
               </ul>
             </div>
             <div>
-              <h3>It is not</h3>
+              <h3>TradeLab is not</h3>
               <ul>
-                <li>Real or live market data — every price is simulated</li>
+                <li>Live market data</li>
                 <li>Connected to any broker, exchange or bank</li>
-                <li>Investment advice, or a prediction of real prices</li>
+                <li>Investment advice</li>
               </ul>
             </div>
           </div>
@@ -163,6 +141,7 @@ export default function Landing() {
       </main>
 
       <footer className="landing-footer">
+        <p>TradeLab was built as a Full Stack Web Development course project. All prices are simulated.</p>
       </footer>
     </div>
   )

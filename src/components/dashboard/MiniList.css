@@ -74,10 +74,8 @@
   gap: var(--space-2);
 }
 .recent-label {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 500;
   color: var(--text-faint);
   margin-right: var(--space-1);
 }

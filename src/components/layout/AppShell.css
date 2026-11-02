@@ -25,12 +25,3 @@
   }
 }
 
-.page-enter {
-  animation: page-in var(--dur) var(--ease-out);
-}
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}

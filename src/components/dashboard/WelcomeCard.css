@@ -3,9 +3,8 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-6);
   align-items: center;
-  background:
-    radial-gradient(70% 90% at 0% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%),
-    var(--surface);
+  background: var(--surface);
+  border-left: 3px solid var(--brand);
 }
 .welcome h2 {
   font-size: var(--text-xl);
@@ -47,9 +46,9 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--brand-gradient);
-  color: var(--on-brand);
-  font-weight: 800;
+  border: 1px solid var(--brand);
+  color: var(--brand);
+  font-weight: 600;
   font-size: var(--text-sm);
 }
 @media (max-width: 800px) {

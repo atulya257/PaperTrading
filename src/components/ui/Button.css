@@ -3,54 +3,47 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 44px;
-  padding: 0 var(--space-5);
+  min-height: 40px;
+  padding: 0 var(--space-4);
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--text-base);
   line-height: 1;
   white-space: nowrap;
   text-decoration: none;
   transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
-    transform var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.btn:hover:not(:disabled) {
-  box-shadow: var(--shadow-1);
-}
-.btn:active:not(:disabled) {
-  transform: translateY(1px) scale(0.99);
-  box-shadow: none;
+    color var(--dur-fast) var(--ease);
 }
 .btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
 .btn-lg {
-  min-height: 52px;
-  padding: 0 var(--space-6);
-  font-size: var(--text-lg);
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-base);
 }
 .btn-block {
   width: 100%;
 }
 
 .btn-primary {
-  background: var(--brand-gradient);
+  background: var(--brand);
   color: var(--on-brand);
 }
 .btn-primary:hover:not(:disabled) {
-  filter: brightness(1.08);
-  box-shadow: 0 4px 18px rgba(45, 212, 191, 0.25);
+  background: var(--brand-hover);
 }
 
 .btn-secondary {
-  background: var(--surface-2);
+  background: var(--surface);
   color: var(--text);
   border-color: var(--border-strong);
 }
 .btn-secondary:hover:not(:disabled) {
-  background: var(--surface-3);
+  background: var(--surface-2);
+  border-color: #aab4c1;
 }
 
 .btn-ghost {
@@ -58,17 +51,17 @@
   color: var(--text-muted);
 }
 .btn-ghost:hover:not(:disabled) {
-  background: var(--surface-2);
+  background: var(--surface-3);
   color: var(--text);
 }
 
 .btn-danger {
-  background: var(--loss-soft);
+  background: var(--surface);
   color: var(--loss);
-  border-color: color-mix(in srgb, var(--loss) 35%, transparent);
+  border-color: color-mix(in srgb, var(--loss) 45%, transparent);
 }
 .btn-danger:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--loss) 22%, transparent);
+  background: var(--loss-soft);
 }
 
 .btn-spinner {
@@ -84,11 +77,13 @@
   background: var(--gain);
   color: var(--on-gain);
 }
+.btn-gain:hover:not(:disabled) {
+  background: #0b6b3c;
+}
 .btn-loss {
   background: var(--loss);
   color: var(--on-loss);
 }
-.btn-gain:hover:not(:disabled),
 .btn-loss:hover:not(:disabled) {
-  filter: brightness(1.08);
+  background: #a92822;
 }
