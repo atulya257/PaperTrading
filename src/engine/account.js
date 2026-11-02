@@ -9,6 +9,7 @@ export function createAccount({ userId, now, sessionDate, initialCapital = INITI
     cash: initialCapital,
     holdings: {},
     orders: [],
+    openOrders: [],
     realizedPnl: 0,
     watchlist: [],
     recentlyViewed: [],
@@ -67,10 +68,13 @@ function sanitizeOrder(o) {
     (o.realizedPnl === null || isInteger(o.realizedPnl)) &&
     Number.isFinite(o.createdAt)
   if (!ok) return null
+  const limitPrice = isInteger(o.limitPrice) && o.limitPrice > 0 ? o.limitPrice : null
   return {
     id: o.id,
     symbol: o.symbol,
     side: o.side,
+    type: limitPrice === null ? 'MARKET' : 'LIMIT',
+    limitPrice,
     quantity: o.quantity,
     price: o.price,
     total: o.total,
@@ -78,6 +82,19 @@ function sanitizeOrder(o) {
     status: 'EXECUTED',
     createdAt: o.createdAt,
   }
+}
+
+function sanitizeOpenOrder(o) {
+  const ok =
+    isObject(o) &&
+    isString(o.id) &&
+    isString(o.symbol) &&
+    (o.side === 'BUY' || o.side === 'SELL') &&
+    isInteger(o.quantity) && o.quantity > 0 &&
+    isInteger(o.limitPrice) && o.limitPrice > 0 &&
+    Number.isFinite(o.createdAt)
+  if (!ok) return null
+  return { id: o.id, symbol: o.symbol, side: o.side, quantity: o.quantity, limitPrice: o.limitPrice, createdAt: o.createdAt }
 }
 
 const uniqueStrings = (list, max) =>
@@ -109,6 +126,11 @@ export function sanitizeAccount(data) {
     .filter(Boolean)
     .slice(0, ACCOUNT_LIMITS.ORDERS_MAX)
 
+  const openOrders = (Array.isArray(data.openOrders) ? data.openOrders : [])
+    .map(sanitizeOpenOrder)
+    .filter(Boolean)
+    .slice(0, ACCOUNT_LIMITS.OPEN_ORDERS_MAX)
+
   let valueHistory = (Array.isArray(data.valueHistory) ? data.valueHistory : []).filter(
     (p) => isObject(p) && Number.isFinite(p.t) && isInteger(p.value),
   )
@@ -127,6 +149,7 @@ export function sanitizeAccount(data) {
     cash: data.cash,
     holdings,
     orders,
+    openOrders,
     realizedPnl: data.realizedPnl,
     watchlist: uniqueStrings(data.watchlist, ACCOUNT_LIMITS.WATCHLIST_MAX),
     recentlyViewed: uniqueStrings(data.recentlyViewed, ACCOUNT_LIMITS.RECENT_MAX),

@@ -53,6 +53,7 @@ export default function OrdersTable({ orders }) {
               </th>
               <td data-label="Side">
                 <span className={`side-badge side-${o.side.toLowerCase()}`}>{o.side === 'BUY' ? 'Buy' : 'Sell'}</span>
+                {o.limitPrice !== null && <span className="dt-sub order-limit">Limit {formatINR(o.limitPrice)}</span>}
               </td>
               <td className="dt-num" data-label="Quantity">
                 {formatQuantity(o.quantity)}

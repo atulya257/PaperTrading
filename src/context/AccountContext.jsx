@@ -8,8 +8,9 @@ import {
   toggleWatchlist as toggleSymbolInWatchlist,
 } from '../engine/account.js'
 import { computePortfolio, valueAtPreviousClose } from '../engine/finance.js'
-import { executeOrder } from '../engine/trading.js'
+import { SIDE, cancelLimitOrder, executeOrder, fillLimitOrders, placeLimitOrder } from '../engine/trading.js'
 import { loadAccount, resetAccount, saveAccount } from '../services/accountService.js'
+import { formatINR, formatQuantity } from '../utils/format.js'
 import { newId } from '../utils/id.js'
 import { useAuth } from './AuthContext.jsx'
 import { useMarket } from './MarketContext.jsx'
@@ -82,6 +83,24 @@ export function AccountProvider({ children }) {
         })
         changed = true
       }
+      // Only the tab that runs the market fills limit orders, so an order never fills twice.
+      if (!snap.status.following && current.openOrders.length > 0) {
+        const now = Date.now()
+        const result = fillLimitOrders(current, snap.quotes, now)
+        if (result.filled.length > 0 || result.cancelled.length > 0) {
+          current = recordValueSnapshot(result.account, now, computePortfolio(result.account, snap.quotes).totalValue)
+          changed = true
+          for (const o of result.filled) {
+            toast.success(
+              `Limit order filled: ${o.side === SIDE.BUY ? 'bought' : 'sold'} ${formatQuantity(o.quantity)} ${o.symbol}`,
+              `${formatQuantity(o.quantity)} × ${formatINR(o.price)} = ${formatINR(o.total)}. Your price was ${formatINR(o.limitPrice)}.`,
+            )
+          }
+          for (const { order: o, reason } of result.cancelled) {
+            toast.error(`Limit order for ${o.symbol} cancelled`, reason)
+          }
+        }
+      }
       if (!snap.status.following && snap.asOf - lastSample >= VALUE_SAMPLE_MS) {
         lastSample = snap.asOf
         current = recordValueSnapshot(current, snap.asOf, computePortfolio(current, snap.quotes).totalValue)
@@ -89,7 +108,7 @@ export function AccountProvider({ children }) {
       }
       if (changed) commit(current)
     })
-  }, [ready, market, commit])
+  }, [ready, market, commit, toast])
 
   useEffect(() => {
     const key = STORAGE_KEYS.account(userId)
@@ -120,6 +139,27 @@ export function AccountProvider({ children }) {
     [market, commit],
   )
 
+  const placeLimit = useCallback(
+    async (request) => {
+      const current = accountRef.current
+      if (!current) return { ok: false, error: { code: 'NOT_READY', message: 'Your account is still loading.' } }
+      const quote = market.getSnapshot().quotes[request?.symbol]
+      const result = placeLimitOrder(current, request, quote, { id: newId(), now: Date.now() })
+      if (result.ok) commit(result.account)
+      return result
+    },
+    [market, commit],
+  )
+
+  const cancelLimit = useCallback(
+    (id) => {
+      const result = cancelLimitOrder(accountRef.current, id)
+      if (result.ok) commit(result.account)
+      return result
+    },
+    [commit],
+  )
+
   const toggleWatchlist = useCallback(
     (symbol) => {
       const current = accountRef.current
@@ -148,8 +188,8 @@ export function AccountProvider({ children }) {
   }, [market, userId, toast])
 
   const value = useMemo(
-    () => ({ account, placeOrder, toggleWatchlist, markViewed, resetSimulator }),
-    [account, placeOrder, toggleWatchlist, markViewed, resetSimulator],
+    () => ({ account, placeOrder, placeLimit, cancelLimit, toggleWatchlist, markViewed, resetSimulator }),
+    [account, placeOrder, placeLimit, cancelLimit, toggleWatchlist, markViewed, resetSimulator],
   )
 
   if (!account) return <FullScreenLoader label="Loading your account…" />

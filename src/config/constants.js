@@ -18,6 +18,7 @@ export const ACCOUNT_LIMITS = {
   ORDERS_MAX: 1000,
   VALUE_HISTORY_MAX: 500,
   MAX_ORDER_QUANTITY: 100_000,
+  OPEN_ORDERS_MAX: 50,
 }
 
 export const DEMO_LABEL = 'Simulated market'

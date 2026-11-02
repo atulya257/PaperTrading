@@ -5,6 +5,11 @@
   display: block;
   white-space: nowrap;
 }
+.order-limit {
+  display: block;
+  margin-top: 2px;
+  white-space: nowrap;
+}
 .order-id {
   display: block;
   font-variant-numeric: tabular-nums;

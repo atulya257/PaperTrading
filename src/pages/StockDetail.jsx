@@ -9,6 +9,7 @@ import EmptyState from '../components/ui/EmptyState.jsx'
 import QuoteHeader from '../components/stock/QuoteHeader.jsx'
 import StockStats from '../components/stock/StockStats.jsx'
 import NewsList from '../components/stock/NewsList.jsx'
+import OpenOrders from '../components/orders/OpenOrders.jsx'
 import PositionCard from '../components/trading/PositionCard.jsx'
 import TradeTicket from '../components/trading/TradeTicket.jsx'
 import { useAccount } from '../context/AccountContext.jsx'
@@ -74,6 +75,7 @@ function StockView({ stock }) {
           <QuoteHeader stock={stock} quote={quote} />
           <StockChart symbol={symbol} prevClose={quote.prevClose} />
           {!wide && <PositionCard symbol={symbol} />}
+          {!wide && <OpenOrders symbol={symbol} />}
           <StockStats stock={stock} quote={quote} />
           <Card title={`About ${stock.name}`}>
             <p className="about-text">{stock.description}</p>
@@ -89,6 +91,7 @@ function StockView({ stock }) {
             <Card title={`Trade ${symbol}`}>
               <TradeTicket symbol={symbol} />
             </Card>
+            <OpenOrders symbol={symbol} />
             <PositionCard symbol={symbol} />
           </aside>
         )}

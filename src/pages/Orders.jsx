@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ReceiptText, SearchX } from 'lucide-react'
+import OpenOrders from '../components/orders/OpenOrders.jsx'
 import OrdersSummary from '../components/orders/OrdersSummary.jsx'
 import OrdersTable from '../components/orders/OrdersTable.jsx'
 import Button from '../components/ui/Button.jsx'
@@ -51,14 +52,16 @@ export default function Orders() {
     <div className="orders-page">
       <header className="page-head">
         <h1>Orders</h1>
-        <p className="page-sub">Every simulated order, filled instantly at the simulated price.</p>
+        <p className="page-sub">Limit orders waiting for their price, and every order that has filled.</p>
       </header>
+
+      <OpenOrders />
 
       {account.orders.length === 0 ? (
         <Card>
           <EmptyState
             icon={ReceiptText}
-            title="No orders yet"
+            title={account.openOrders.length > 0 ? 'No orders have filled yet' : 'No orders yet'}
             action={
               <Button to="/markets" size="lg">
                 Find a stock to buy
@@ -70,6 +73,7 @@ export default function Orders() {
         </Card>
       ) : (
         <>
+          <h2 className="section-heading">Filled orders</h2>
           <OrdersSummary summary={summary} />
 
           <div className="orders-filters">
