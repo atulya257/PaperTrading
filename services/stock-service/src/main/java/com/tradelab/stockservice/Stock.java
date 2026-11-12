@@ -7,10 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.math.BigDecimal;
 
-/**
- * A stock listed on TradeLab. The last three fields tune how the React app's market simulator moves its price;
- * they are optional and the frontend uses sensible defaults when they are missing.
- */
+/** beta, sectorLoad and dailyVol tune the React market simulator; they are optional. */
 @Entity
 public class Stock {
 

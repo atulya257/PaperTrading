@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Runs the whole Stock Service (controller -> service -> repository -> H2) through HTTP requests. */
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional

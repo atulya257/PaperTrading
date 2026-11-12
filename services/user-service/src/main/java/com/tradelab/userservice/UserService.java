@@ -10,13 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Business layer of the User Service. Rules:
- * <ol>
- *   <li>Name 2-40 characters, a valid email that isn't registered yet.</li>
- *   <li>Password 8-72 characters with a letter and a number; only its BCrypt hash is saved.</li>
- *   <li>Login checks the password with BCrypt. Every attempt is recorded; after too many wrong passwords
- *       the account is locked for a while, even for the right password.</li>
- * </ol>
+ * Name: 2-40 characters. Email: valid and not registered yet.
+ * Password: 8-72 characters with a letter and a number; only its BCrypt hash is saved.
+ * Every login attempt is recorded, and too many wrong passwords lock the account for a while.
  */
 @Service
 public class UserService {

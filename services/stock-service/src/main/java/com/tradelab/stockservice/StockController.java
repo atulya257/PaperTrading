@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/** REST API of the Stock Service. The React app (port 5173) is allowed to call it from the browser. */
-@CrossOrigin(origins = "http://localhost:5173")
+// The React dev server, on this computer or opened from a phone on the same network
+@CrossOrigin(originPatterns = {"http://localhost:5173", "http://*:5173"})
 @RestController
 @RequestMapping("/api/stocks")
 public class StockController {

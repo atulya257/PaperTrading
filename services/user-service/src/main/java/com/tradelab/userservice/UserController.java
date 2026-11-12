@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * REST API of the User Service. Every response uses UserResponse, so a password hash never leaves the service.
- * The React app (port 5173) is allowed to call it from the browser.
- */
-@CrossOrigin(origins = "http://localhost:5173")
+/** Every response is a UserResponse, so a password hash never leaves the service. */
+// The React dev server, on this computer or opened from a phone on the same network
+@CrossOrigin(originPatterns = {"http://localhost:5173", "http://*:5173"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

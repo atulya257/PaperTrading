@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Runs the User Service over HTTP against an H2 database in MySQL mode (see src/test/resources). */
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional

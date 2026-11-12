@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
 
-/** One login try, right or wrong. Used to lock an account after repeated failures. */
 @Entity
 @Table(name = "login_attempts")
 public class LoginAttempt {
