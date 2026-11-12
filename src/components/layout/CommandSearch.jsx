@@ -87,7 +87,6 @@ function SearchPanel({ onClose }) {
           }}
           onKeyDown={onKeyDown}
         />
-        <kbd className="palette-kbd">Esc</kbd>
       </div>
 
       <p className="sr-only" role="status">
@@ -133,11 +132,6 @@ function SearchPanel({ onClose }) {
         )}
       </div>
 
-      <p className="palette-foot">
-        <span>↑ ↓ to move</span>
-        <span>Enter to open</span>
-        <span>Simulated prices</span>
-      </p>
     </div>
   )
 }

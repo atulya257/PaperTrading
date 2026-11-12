@@ -1,16 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@fontsource/ibm-plex-sans/400.css'
-import '@fontsource/ibm-plex-sans/500.css'
-import '@fontsource/ibm-plex-sans/600.css'
-import '@fontsource/ibm-plex-sans/700.css'
-import '@fontsource/ibm-plex-sans-condensed/600.css'
-import '@fontsource/ibm-plex-sans-condensed/700.css'
+import '@fontsource-variable/archivo/wdth.css'
 import './styles/tokens.css'
 import './styles/base.css'
 import './styles/page.css'
 import App from './App.jsx'
+import { removeOlderVersions } from './services/storage.js'
+import { startTheme } from './services/theme.js'
 import './styles/a11y.css'
+
+// Data saved by version 1 of the app is no longer used
+removeOlderVersions('tradelab:v2:')
+startTheme()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

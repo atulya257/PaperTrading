@@ -1,7 +1,7 @@
 import { useId, useMemo } from 'react'
 import { Area, AreaChart, CartesianGrid, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { formatDate, formatPercent, formatTime, paiseToRupees } from '../../utils/format.js'
-import { AXIS_TICK, GRID_STROKE, rupeeLabel, tickLabel } from './chartUtils.js'
+import { AXIS_TICK, GRID_STROKE, niceTicks, pointAtEvent, rupeeLabel, tickLabel, timeTicks } from './chartUtils.js'
 import './PriceChart.css'
 
 function PerformanceTooltip({ active, payload, first, baselineLabel }) {
@@ -22,10 +22,20 @@ function PerformanceTooltip({ active, payload, first, baselineLabel }) {
   )
 }
 
-export default function PerformanceChart({ points, range, baseline }) {
+function TimeTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null
+  const { t } = payload[0].payload
+  return (
+    <div className="chart-time">
+      {formatDate(t)}, {formatTime(t)}
+    </div>
+  )
+}
+
+export default function PerformanceChart({ points, range, baseline, onScrub }) {
   const gradientId = `perf-${useId().replace(/:/g, '')}`
 
-  const { data, domain, first, last, color } = useMemo(() => {
+  const { data, yTicks, xTicks, domain, first, last, color } = useMemo(() => {
     const rows = points.map((p) => ({ t: p.t, value: paiseToRupees(p.value) }))
     const firstValue = rows[0].value
     const lastValue = rows[rows.length - 1].value
@@ -37,24 +47,32 @@ export default function PerformanceChart({ points, range, baseline }) {
       hi = Math.max(hi, b)
     }
     const pad = Math.max((hi - lo) * 0.15, hi * 0.0005)
+    const yTicks = niceTicks(Math.max(0, lo - pad), hi + pad)
     return {
       data: rows,
-      domain: [Math.max(0, lo - pad), hi + pad],
+      yTicks,
+      xTicks: timeTicks(range, rows[0].t, rows[rows.length - 1].t),
+      domain: [yTicks[0], yTicks[yTicks.length - 1]],
       first: firstValue,
       last: lastValue,
       color: lastValue >= firstValue ? 'var(--gain)' : 'var(--loss)',
     }
-  }, [points, baseline])
+  }, [points, baseline, range])
 
   const summary = `Portfolio value over the selected range: from ${rupeeLabel(first)} to ${rupeeLabel(last)}, ${formatPercent(((last - first) / first) * 100)}. Simulated data.`
 
   return (
     <div className="chart-frame" role="img" aria-label={summary}>
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+        <AreaChart
+          data={data}
+          margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+          onMouseMove={onScrub ? (state) => onScrub(pointAtEvent(state, points)) : undefined}
+          onMouseLeave={onScrub ? () => onScrub(null) : undefined}
+        >
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.28 }} />
+              <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.16 }} />
               <stop offset="100%" style={{ stopColor: color, stopOpacity: 0 }} />
             </linearGradient>
           </defs>
@@ -64,6 +82,7 @@ export default function PerformanceChart({ points, range, baseline }) {
             type="number"
             scale="time"
             domain={['dataMin', 'dataMax']}
+            ticks={xTicks}
             tickFormatter={(t) => tickLabel(range, t)}
             tickLine={false}
             axisLine={false}
@@ -77,20 +96,21 @@ export default function PerformanceChart({ points, range, baseline }) {
             tickLine={false}
             axisLine={false}
             width={76}
-            tickCount={5}
+            ticks={yTicks}
             tick={AXIS_TICK}
           />
           {baseline && <ReferenceLine y={paiseToRupees(baseline.value)} stroke="var(--text-faint)" strokeDasharray="4 4" />}
           <Tooltip
-            content={<PerformanceTooltip first={first} baselineLabel={baseline?.label} />}
-            cursor={{ stroke: 'var(--text-faint)' }}
+            content={onScrub ? <TimeTooltip /> : <PerformanceTooltip first={first} baselineLabel={baseline?.label} />}
+            cursor={{ stroke: 'var(--text)', strokeWidth: 1 }}
+            position={onScrub ? { y: 0 } : undefined}
             isAnimationActive={false}
           />
           <Area
             type="monotone"
             dataKey="value"
             stroke={color}
-            strokeWidth={2}
+            strokeWidth={2.25}
             fill={`url(#${gradientId})`}
             dot={false}
             activeDot={{ r: 4, stroke: 'var(--surface)', strokeWidth: 2 }}

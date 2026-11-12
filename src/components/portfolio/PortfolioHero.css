@@ -1,0 +1,112 @@
+.phero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+}
+.phero-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.phero-label {
+  min-height: 1.5em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.phero-value {
+  margin-top: var(--space-1);
+  font-size: var(--text-hero);
+  font-stretch: var(--wide);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.phero-change {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-base);
+}
+.phero-range {
+  color: var(--text-faint);
+}
+
+.phero-chart {
+  height: 300px;
+  margin: 0 calc(-1 * var(--space-2));
+}
+.phero-chart .chart-frame {
+  height: 300px;
+}
+.phero-wait {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: var(--space-5);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  text-align: center;
+}
+.phero-note {
+  font-size: var(--text-sm);
+  color: var(--text-faint);
+}
+
+.phero-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.phero-stats dt {
+  font-size: var(--text-sm);
+  color: var(--text-faint);
+}
+.phero-stats dd {
+  margin: 2px 0 0;
+  font-size: var(--text-lg);
+  font-stretch: var(--wide);
+  font-weight: 750;
+}
+.phero-stats .pnl {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.phero-stats .pnl .change {
+  font-size: var(--text-sm);
+  font-stretch: 100%;
+}
+
+@media (max-width: 1100px) {
+  .phero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .phero {
+    padding: var(--space-5) var(--space-4);
+  }
+  .phero-head .segmented {
+    width: 100%;
+  }
+  .phero-chart,
+  .phero-chart .chart-frame {
+    height: 240px;
+  }
+  .phero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from 'react'
 import { LineChart } from 'lucide-react'
-import Card from '../ui/Card.jsx'
 import EmptyState from '../ui/EmptyState.jsx'
 import Skeleton from '../ui/Skeleton.jsx'
 import SegmentedControl from '../ui/SegmentedControl.jsx'
@@ -18,11 +17,11 @@ const CHART_REFRESH_MS = 1500
 
 const ChartSkeleton = () => (
   <div className="chart-skeleton">
-    <Skeleton height="100%" radius="12px" />
+    <Skeleton height="100%" radius="var(--radius)" />
   </div>
 )
 
-export default function StockChart({ symbol, prevClose }) {
+export default function StockChart({ symbol, prevClose, onScrub }) {
   const [period, setPeriod] = useState(DEFAULT_PERIOD)
   const { points: livePoints, loading, error, reload } = useHistory(symbol, period)
   const points = useThrottledValue(livePoints, CHART_REFRESH_MS, `${symbol}|${period}`)
@@ -46,29 +45,40 @@ export default function StockChart({ symbol, prevClose }) {
   } else {
     body = (
       <Suspense fallback={<ChartSkeleton />}>
-        <PriceChart points={points} period={period} prevClose={prevClose} symbol={symbol} />
+        <div key={period} className="chart-fade">
+          <PriceChart
+            points={points}
+            period={period}
+            prevClose={prevClose}
+            symbol={symbol}
+            onScrub={onScrub ? (pt) => onScrub(pt ? { ...pt, first: points[0].price, period } : null) : undefined}
+          />
+        </div>
       </Suspense>
     )
   }
 
   return (
-    <Card
-      className="stock-chart"
-      title={
-        <span className="chart-title">
-          Price chart
-          {changePct !== null && (
-            <span className="chart-period-change">
-              <ChangeBadge pct={changePct} /> <span className="chart-period-label">over {period}</span>
-            </span>
-          )}
-        </span>
-      }
-      actions={<SegmentedControl label="Chart period" options={PERIODS.map((p) => ({ value: p, label: p }))} value={period} onChange={setPeriod} />}
-    >
+    <div className="stock-chart">
       {body}
+      <div className="chart-bar">
+        <SegmentedControl
+          label="Chart period"
+          options={PERIODS.map((p) => ({ value: p, label: p }))}
+          value={period}
+          onChange={(next) => {
+            setPeriod(next)
+            onScrub?.(null)
+          }}
+        />
+        {changePct !== null && (
+          <span className="chart-period-change">
+            <ChangeBadge pct={changePct} /> <span className="chart-period-label">over {period}</span>
+          </span>
+        )}
+      </div>
       {hasData && <ChartTable points={points} valueKey="price" valueLabel="Simulated price" format={formatINR} caption={`${symbol} simulated price, ${period}`} />}
       <p className="chart-note">Prices are simulated, not real market data.</p>
-    </Card>
+    </div>
   )
 }

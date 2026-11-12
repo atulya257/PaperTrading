@@ -1,7 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import './Dialog.css'
+
+// Matches the exit animation in Dialog.css; the panel stays mounted this long after closing.
+const EXIT_MS = 200
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -9,6 +12,16 @@ const FOCUSABLE =
 export default function Dialog({ open, onClose, title, placement = 'center', bare = false, children }) {
   const rootRef = useRef(null)
   const panelRef = useRef(null)
+  // 'open' -> 'closing' (exit animation plays) -> 'closed' (unmounted)
+  const [phase, setPhase] = useState(open ? 'open' : 'closed')
+  if (open && phase !== 'open') setPhase('open')
+  if (!open && phase === 'open') setPhase('closing')
+
+  useEffect(() => {
+    if (phase !== 'closing') return undefined
+    const timer = setTimeout(() => setPhase('closed'), EXIT_MS)
+    return () => clearTimeout(timer)
+  }, [phase])
 
   useEffect(() => {
     if (!open) return undefined
@@ -63,10 +76,10 @@ export default function Dialog({ open, onClose, title, placement = 'center', bar
     }
   }, [open, onClose])
 
-  if (!open) return null
+  if (phase === 'closed') return null
 
   return createPortal(
-    <div className={`dialog-root dialog-${placement}`} ref={rootRef}>
+    <div className={`dialog-root dialog-${placement}${phase === 'closing' ? ' is-closing' : ''}`} ref={rootRef}>
       <div className="dialog-backdrop" onClick={onClose} aria-hidden="true" />
       <div className="dialog-panel" role="dialog" aria-modal="true" aria-label={title} ref={panelRef} tabIndex={-1}>
         {!bare && (

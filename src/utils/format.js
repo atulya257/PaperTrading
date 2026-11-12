@@ -24,12 +24,6 @@ export function formatSignedINR(paise) {
   return `${paise > 0 ? '+' : MINUS}₹${inrNumber.format(Math.abs(paiseToRupees(paise)))}`
 }
 
-export function formatINRWhole(paise) {
-  if (!Number.isFinite(paise)) return '—'
-  const text = `₹${inrWhole.format(Math.abs(paiseToRupees(paise)))}`
-  return paise < 0 ? `${MINUS}${text}` : text
-}
-
 export function formatPercent(value, { signed = true, digits = 2 } = {}) {
   if (!Number.isFinite(value)) return '—'
   const text = `${Math.abs(value).toFixed(digits)}%`

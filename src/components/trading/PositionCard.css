@@ -19,6 +19,7 @@
 }
 .position-pnl-amount {
   font-family: var(--font-display);
+  font-stretch: var(--wide);
   font-size: var(--text-2xl);
   font-weight: 700;
 }

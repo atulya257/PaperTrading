@@ -48,7 +48,6 @@ export function AuthProvider({ children }) {
       signedOut,
       signup: (details) => run(() => authService.signup(details)),
       login: (details) => run(() => authService.login(details)),
-      guestLogin: () => run(() => authService.guest()),
       logout: async () => {
         await authService.logout()
         setSignedOut(true)

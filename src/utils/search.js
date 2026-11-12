@@ -39,7 +39,6 @@ const SORT_VALUE = {
   change: (s, q) => q?.changePct ?? 0,
   marketCap: (s) => s.marketCap,
 }
-export const SORT_KEYS = Object.keys(SORT_VALUE)
 
 export function sortStocks(stocks, quotes, { key = 'marketCap', dir = 'desc' } = {}) {
   const value = SORT_VALUE[key] ?? SORT_VALUE.marketCap

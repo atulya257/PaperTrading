@@ -11,7 +11,7 @@ export default function ToastViewport({ toasts, onDismiss, onHold, onRelease }) 
         return (
           <div
             key={t.id}
-            className={`toast toast-${t.type}`}
+            className={`toast toast-${t.type}${t.leaving ? ' is-leaving' : ''}`}
             role={t.type === 'error' ? 'alert' : 'status'}
             onMouseEnter={onHold}
             onMouseLeave={onRelease}

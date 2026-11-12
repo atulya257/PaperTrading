@@ -1,9 +1,6 @@
 .quote-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-5);
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 .quote-title-row {
   display: flex;
@@ -13,7 +10,8 @@
 }
 .quote-symbol {
   font-size: var(--text-2xl);
-  font-weight: 700;
+  line-height: 1.1;
+  margin-right: var(--space-1);
 }
 .quote-tag {
   padding: 3px 10px;
@@ -28,22 +26,20 @@
   color: var(--text-muted);
   margin-top: 2px;
 }
-.quote-price-block {
-  margin-left: auto;
-  text-align: right;
-}
 .quote-price {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 700;
-  line-height: 1.1;
+  margin-top: var(--space-4);
+  font-size: var(--text-hero);
+  font-stretch: var(--wide);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 .quote-change {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
-  margin-top: 2px;
+  margin-top: var(--space-3);
   font-weight: 600;
 }
 .quote-today {
@@ -52,22 +48,7 @@
   font-size: var(--text-sm);
 }
 .quote-meta {
-  margin-top: 2px;
+  margin-top: var(--space-1);
   font-size: var(--text-xs);
   color: var(--text-faint);
-}
-
-@media (max-width: 640px) {
-  .quote-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .quote-price-block {
-    margin-left: 0;
-    text-align: left;
-  }
-  .quote-change {
-    justify-content: flex-start;
-  }
 }

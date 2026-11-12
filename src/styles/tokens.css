@@ -1,67 +1,127 @@
 /*
-  TradeLab theme: a light trading-app look with a dark navy masthead.
-  Page in light grey, panels in white, navy for the header and main buttons,
-  blue for links, marigold as a small accent on dark backgrounds,
-  and green/red used only for gains and losses.
+  TradeLab theme: "read the market at a glance".
+  Paper-grey ground, white panels, ink for text and the sidebar, marigold as the one accent,
+  green and red only for gains and losses. One type family, Archivo, used across its width axis:
+  expanded for headlines and big figures, normal for reading.
 */
 :root {
   color-scheme: light;
 
-  --bg: #eef1f5;
+  --bg: #f3f4f0;
   --bg-elevated: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f5f7fa;
-  --surface-3: #e8ecf1;
-  --border: #dfe4ea;
-  --border-strong: #c6ced8;
+  --surface-2: #f7f8f5;
+  --surface-3: #eceee8;
+  --border: #e4e6e0;
+  --border-strong: #cfd3ca;
 
-  --text: #1b2430;
-  --text-muted: #4a5666;
-  --text-faint: #6b7686;
+  --text: #151a23;
+  --text-muted: #4f5866;
+  --text-faint: #6b7380;
 
-  --brand: #1f5fbf;
-  --brand-hover: #194f9f;
-  --brand-2: #1f5fbf;
-  --brand-gradient: #1f5fbf;
-  --brand-soft: #e7eefa;
-  --on-brand: #ffffff;
+  --brand: #151a23;
+  --brand-gradient: var(--primary);
+  --brand-soft: #eceee8;
+  --on-brand: var(--on-primary);
 
-  /* The dark header bar */
-  --header-bg: #1d2a3b;
-  --header-text: #e6ebf2;
-  --header-muted: #a9b5c4;
-  --header-field: #2a3a50;
-  --header-line: #2c3c52;
-  --tape-bg: #131c28;
+  /* Solid buttons, chips and pills: ink on light, inverted in dark */
+  --primary: #151a23;
+  --primary-hover: #2a313d;
+  --on-primary: #ffffff;
+  --surface-raised: #ffffff;
+  --bar-bg: rgba(255, 255, 255, 0.96);
+  --board: #151a23;
 
-  /* Navy for main buttons, marigold for highlights on the dark header */
-  --ink: #1d2a3b;
-  --ink-hover: #2c3e56;
-  --accent: #f0a83a;
-  --on-accent: #1b2430;
+  --header-bg: #151a23;
+  --header-text: #eef0ea;
+  --header-muted: #9aa2ad;
+  --header-field: #222935;
+  --header-line: #2a313d;
 
-  --gain: #0e8048;
-  --gain-soft: #e3f3ea;
+  --ink: #151a23;
+  --ink-hover: #2a313d;
+  --accent: #f2a33a;
+  --accent-hover: #f6b558;
+  --accent-soft: #fdf0dc;
+  --on-accent: #151a23;
+
+  --gain: #0b7a43;
+  --gain-soft: #e1f2e8;
+  --gain-solid: #0b7a43;
+  --gain-solid-hover: #0b6b3c;
   --on-gain: #ffffff;
-  --loss: #c8312a;
-  --loss-soft: #fbe7e5;
+  --loss: #c6352b;
+  --loss-soft: #fbe8e5;
+  --loss-solid: #c6352b;
+  --loss-solid-hover: #a92822;
   --on-loss: #ffffff;
   --flat: var(--text-muted);
   --demo: #8a5a00;
   --demo-soft: #fdf3dc;
-  --info: #1f5fbf;
+  --info: #151a23;
 
-  --focus: #1f5fbf;
-  --overlay: rgba(20, 28, 40, 0.45);
-  --shadow-1: none;
-  --shadow-2: 0 8px 24px rgba(20, 28, 40, 0.14);
-  --glow-brand: 0 0 0 3px rgba(31, 95, 191, 0.18);
+  --focus: #151a23;
+  --overlay: rgba(21, 26, 35, 0.45);
+  --shadow-1: 0 1px 2px rgba(21, 26, 35, 0.05);
+  --shadow-2: 0 16px 40px rgba(21, 26, 35, 0.16);
+  --glow-brand: 0 0 0 3px rgba(242, 163, 58, 0.35);
+}
+
+/* Dark theme: set on <html> by index.html and services/theme.js */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0e1116;
+  --bg-elevated: #161b22;
+  --surface: #161b22;
+  --surface-2: #1c222b;
+  --surface-3: #252c37;
+  --surface-raised: #2c3440;
+  --border: #272e39;
+  --border-strong: #3a4350;
+
+  --text: #e9ecf0;
+  --text-muted: #a7b0bc;
+  --text-faint: #8b94a1;
+
+  --brand: #e9ecf0;
+  --brand-soft: #252c37;
+
+  --header-bg: #090c11;
+  --header-field: #171c24;
+  --header-line: #232a34;
+
+  --primary: #e9ecf0;
+  --primary-hover: #ffffff;
+  --on-primary: #10141a;
+  --bar-bg: rgba(22, 27, 34, 0.94);
+  --board: #0a0d12;
+
+  --accent-soft: #3a2b14;
+
+  --gain: #3cc47f;
+  --gain-soft: #13301f;
+  --gain-solid: #17894f;
+  --gain-solid-hover: #1d9b5b;
+  --loss: #f26b60;
+  --loss-soft: #3b1b19;
+  --loss-solid: #c93d32;
+  --loss-solid-hover: #d84b40;
+  --demo: #e3b04b;
+  --demo-soft: #2e2311;
+  --info: #e9ecf0;
+
+  --focus: #e9ecf0;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 18px 44px rgba(0, 0, 0, 0.55);
 }
 
 :root {
-  --font-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* Condensed Plex for page titles and big figures, like a price board */
-  --font-display: 'IBM Plex Sans Condensed', var(--font-ui);
+  --font-ui: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  /* Archivo width for headlines and big figures */
+  --wide: 122%;
 
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
@@ -69,7 +129,8 @@
   --text-lg: 1.0625rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
-  --text-3xl: 2rem;
+  --text-3xl: 2.125rem;
+  --text-hero: clamp(2.1rem, 5.2vw, 4rem);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -80,24 +141,23 @@
   --space-7: 48px;
   --space-8: 64px;
 
-  --radius-sm: 4px;
-  --radius: 6px;
-  --radius-lg: 6px;
-  --radius-pill: 4px;
+  /* Shape rule: actions and tabs are pills, controls 10px, panels 16px, dialogs 20px */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
 
   --topbar-h: 60px;
-  --tabbar-h: 48px;
-  --content-max: 1200px;
+  --tabbar-h: 64px;
+  --content-max: 1160px;
 
-  --ease: ease;
+  /* Motion: one strong ease-out for everything that enters or responds,
+     a quicker ease-in for exits. Press 120ms, standard 200ms, sheets 320ms. */
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
   --dur-fast: 120ms;
-  --dur: 160ms;
-  --ease-out: ease-out;
-}
-
-@media (max-width: 899px) {
-  :root {
-    --topbar-h: 56px;
-    --tabbar-h: 46px;
-  }
+  --dur: 200ms;
+  --dur-slow: 320ms;
+  --dur-exit: 150ms;
 }

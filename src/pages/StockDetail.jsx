@@ -51,6 +51,7 @@ function StockView({ stock }) {
   const { markViewed } = useAccount()
   const wide = useMediaQuery('(min-width: 1024px)')
   const [sheet, setSheet] = useState({ open: false, side: SIDE.BUY })
+  const [scrub, setScrub] = useState(null)
   const news = useAsyncData(() => market.getNews({ symbol }), [symbol])
 
   useEffect(() => {
@@ -72,8 +73,10 @@ function StockView({ stock }) {
 
       <div className="stock-layout">
         <div className="stock-main">
-          <QuoteHeader stock={stock} quote={quote} />
-          <StockChart symbol={symbol} prevClose={quote.prevClose} />
+          <section className="stock-hero" aria-label={`${symbol} price`}>
+            <QuoteHeader stock={stock} quote={quote} scrub={scrub} />
+            <StockChart symbol={symbol} prevClose={quote.prevClose} onScrub={setScrub} />
+          </section>
           {!wide && <PositionCard symbol={symbol} />}
           {!wide && <OpenOrders symbol={symbol} />}
           <StockStats stock={stock} quote={quote} />

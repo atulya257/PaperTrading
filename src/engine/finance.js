@@ -109,11 +109,6 @@ export function computePortfolio(account, quotes, { sectorOf } = {}) {
   }
 }
 
-export function isConsistent(account) {
-  const invested = Object.values(account.holdings).reduce((sum, h) => sum + h.invested, 0)
-  return account.cash + invested === account.initialCapital + account.realizedPnl
-}
-
 export function foldAllocation(items, max = 8) {
   if (items.length <= max) return items
   const keep = items.filter((i) => i.key === 'CASH')

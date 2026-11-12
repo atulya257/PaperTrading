@@ -6,25 +6,25 @@ import Dialog from '../components/ui/Dialog.jsx'
 import SegmentedControl from '../components/ui/SegmentedControl.jsx'
 import { useAccount } from '../context/AccountContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { useMarket } from '../context/MarketContext.jsx'
 import { INITIAL_CAPITAL } from '../config/constants.js'
-import { useMarketSnapshot } from '../hooks/useMarketData.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
+import { useTheme } from '../hooks/useTheme.js'
 import { isPersistent } from '../services/storage.js'
 import { formatINR } from '../utils/format.js'
 import './Settings.css'
 
+const THEME_OPTIONS = [
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+]
+
 export default function Settings() {
   usePageTitle('Settings')
+  const [theme, setTheme] = useTheme()
   const { user, logout } = useAuth()
   const { resetSimulator } = useAccount()
-  const market = useMarket()
-  const { status } = useMarketSnapshot()
   const [confirmingReset, setConfirmingReset] = useState(false)
   const [resetting, setResetting] = useState(false)
-
-  const speeds = market.getSpeedOptions()
-  const activeSpeed = speeds.find((s) => s.value === status.speed)
 
   async function confirmReset() {
     setResetting(true)
@@ -43,28 +43,11 @@ export default function Settings() {
         <h1>Settings</h1>
       </header>
 
-      <Card title="Simulated market">
-        {speeds.length > 0 && (
-          <div className="setting">
-            <div className="setting-text">
-              <h3>Speed</h3>
-              <p>{activeSpeed?.description}</p>
-            </div>
-            <SegmentedControl
-              label="Simulation speed"
-              options={speeds.map((s) => ({ value: s.value, label: s.label }))}
-              value={status.speed}
-              onChange={(value) => market.setSpeed(value)}
-            />
-          </div>
-        )}
-      </Card>
-
       <Card title="Account">
         <div className="setting">
           <div className="setting-text">
-            <h3>{user.isGuest ? 'Guest demo account' : user.name}</h3>
-            <p>{user.isGuest ? 'Not tied to an email. A guest login ends when you log out.' : user.email}</p>
+            <h3>{user.name}</h3>
+            <p>{user.email}</p>
           </div>
           <Button variant="secondary" onClick={signOut}>
             Sign out
@@ -75,6 +58,16 @@ export default function Settings() {
             <AlertTriangle size={16} aria-hidden="true" /> Your browser is blocking local storage, so progress will be lost when you close this tab.
           </p>
         )}
+      </Card>
+
+      <Card title="Appearance">
+        <div className="setting">
+          <div className="setting-text">
+            <h3>Theme</h3>
+            <p>Choose a light or dark look for the app.</p>
+          </div>
+          <SegmentedControl label="Theme" options={THEME_OPTIONS} value={theme} onChange={setTheme} />
+        </div>
       </Card>
 
       <Card title="Reset" className="danger-zone">

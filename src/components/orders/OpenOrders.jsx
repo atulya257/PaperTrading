@@ -8,10 +8,9 @@ import { formatINR, formatPercent, formatQuantity, formatShortDateTime } from '.
 import './OrdersTable.css'
 import './OpenOrders.css'
 
-/** Limit orders still waiting for their price. Shows every stock, or just one when `symbol` is given. */
 export default function OpenOrders({ symbol }) {
   const { account, cancelLimit } = useAccount()
-  const { quotes } = useMarketSnapshot()
+  const { quotes, asOf } = useMarketSnapshot()
   const toast = useToast()
   const orders = account.openOrders.filter((o) => !symbol || o.symbol === symbol)
   if (orders.length === 0) return null
@@ -33,8 +32,9 @@ export default function OpenOrders({ symbol }) {
           const isBuy = o.side === SIDE.BUY
           const price = quotes[o.symbol]?.price
           const gap = price ? ((o.limitPrice - price) / price) * 100 : null
+          const isNew = asOf - o.createdAt < 3000
           return (
-            <li key={o.id} className="open-order">
+            <li key={o.id} className={`open-order${isNew ? ' is-new' : ''}`}>
               <div className="open-order-main">
                 <span className={`side-badge side-${o.side.toLowerCase()}`}>{isBuy ? 'Buy' : 'Sell'}</span>
                 <p>

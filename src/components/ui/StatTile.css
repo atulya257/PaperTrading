@@ -8,9 +8,11 @@
 .stat-value {
   margin-top: 2px;
   font-family: var(--font-display);
+  font-stretch: var(--wide);
   font-size: var(--text-xl);
-  font-weight: 700;
+  font-weight: 750;
   line-height: 1.2;
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
 }
 .stat-sub {
@@ -19,7 +21,8 @@
   color: var(--text-muted);
 }
 .stat-hero .stat-value {
-  font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: var(--text-hero);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }

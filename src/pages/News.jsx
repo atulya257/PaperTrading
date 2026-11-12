@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Info } from 'lucide-react'
 import Card from '../components/ui/Card.jsx'
 import SegmentedControl from '../components/ui/SegmentedControl.jsx'
 import NewsList from '../components/stock/NewsList.jsx'
@@ -39,7 +38,6 @@ export default function News() {
     <div className="news-page">
       <header className="page-head">
         <h1>News</h1>
-        <p className="page-sub">Market headlines. These are sample stories, not real news.</p>
       </header>
 
       <div className="news-filters">

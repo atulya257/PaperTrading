@@ -1,8 +1,3 @@
-.shell {
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
 .shell-body {
   min-height: 100vh;
   min-height: 100dvh;
@@ -15,13 +10,28 @@
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: var(--space-5);
+  padding: var(--space-6) var(--space-6) var(--space-8);
   outline: none;
 }
 
-@media (max-width: 767px) {
-  .shell-main {
-    padding: var(--space-4);
+.page-enter {
+  animation: page-in var(--dur) var(--ease) backwards;
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
   }
 }
 
+/* Room for the tab bar at the bottom of the screen */
+@media (max-width: 1099px) {
+  .shell-main {
+    padding: var(--space-5) var(--space-5) calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--space-6));
+  }
+}
+@media (max-width: 560px) {
+  .shell-main {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}

@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom'
 import AllocationCard from '../components/portfolio/AllocationCard.jsx'
 import HoldingsTable from '../components/portfolio/HoldingsTable.jsx'
-import PerformanceCard from '../components/portfolio/PerformanceCard.jsx'
-import PortfolioSummary from '../components/portfolio/PortfolioSummary.jsx'
+import PortfolioHero from '../components/portfolio/PortfolioHero.jsx'
 import StartInvesting from '../components/portfolio/StartInvesting.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import { usePortfolio } from '../hooks/usePortfolio.js'
@@ -17,17 +15,9 @@ export default function Portfolio() {
     <div className="portfolio">
       <header className="page-head">
         <h1>Portfolio</h1>
-        <p className="page-sub">
-          Valued at current simulated prices. <Link to="/orders">See your orders</Link>
-        </p>
       </header>
 
-      <PortfolioSummary portfolio={portfolio} />
-
-      <div className="portfolio-grid">
-        <PerformanceCard />
-        <AllocationCard allocation={portfolio.allocation} hasHoldings={hasHoldings} />
-      </div>
+      <PortfolioHero portfolio={portfolio} />
 
       <section aria-labelledby="holdings-title">
         <h2 id="holdings-title" className="section-heading">
@@ -35,6 +25,8 @@ export default function Portfolio() {
         </h2>
         {hasHoldings ? <HoldingsTable holdings={portfolio.holdings} /> : <StartInvesting />}
       </section>
+
+      <AllocationCard allocation={portfolio.allocation} hasHoldings={hasHoldings} />
     </div>
   )
 }

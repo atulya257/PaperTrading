@@ -10,6 +10,24 @@
   align-items: center;
   padding: var(--space-3) 0;
 }
+.open-order.is-new {
+  animation: order-arrive 1200ms var(--ease);
+}
+@keyframes order-arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+    background: var(--brand-soft);
+  }
+  20% {
+    opacity: 1;
+    transform: none;
+    background: var(--brand-soft);
+  }
+  100% {
+    background: transparent;
+  }
+}
 .open-order + .open-order {
   border-top: 1px solid var(--border);
 }
@@ -38,6 +56,12 @@
   color: var(--text);
   font-size: var(--text-sm);
   font-weight: 500;
+}
+.open-order-cancel {
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.open-order-cancel:active {
+  transform: scale(0.97);
 }
 .open-order-cancel:hover {
   border-color: var(--loss);

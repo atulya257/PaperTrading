@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Star } from 'lucide-react'
 import StockTable from '../components/markets/StockTable.jsx'
+import AddStockPicker from '../components/stock/AddStockPicker.jsx'
 import ChangeBadge from '../components/stock/ChangeBadge.jsx'
 import WatchButton from '../components/stock/WatchButton.jsx'
 import Button from '../components/ui/Button.jsx'
@@ -50,30 +51,15 @@ export default function Watchlist() {
       <header className="page-head watch-head">
         <div>
           <h1>Watchlist</h1>
-          <p className="page-sub">
-            {watched.length === 0
-              ? 'Track stocks you are interested in.'
-              : `${watched.length} ${watched.length === 1 ? 'stock' : 'stocks'}, ${moves.up} up and ${moves.down} down today`}
-          </p>
+          {watched.length > 0 && (
+            <p className="page-sub">
+              {watched.length} {watched.length === 1 ? 'stock' : 'stocks'}, {moves.up} up and {moves.down} down today
+            </p>
+          )}
         </div>
 
         {!full && addable.length > 0 && (
-          <label className="watch-add">
-            <span className="sr-only">Add a stock to your watchlist</span>
-            <select
-              value=""
-              onChange={(e) => {
-                if (e.target.value) toggleWatchlist(e.target.value)
-              }}
-            >
-              <option value="">Add a stock…</option>
-              {addable.map((s) => (
-                <option key={s.symbol} value={s.symbol}>
-                  {s.symbol} ({s.name})
-                </option>
-              ))}
-            </select>
-          </label>
+          <AddStockPicker stocks={addable} quotes={quotes} onAdd={toggleWatchlist} />
         )}
       </header>
 
@@ -119,7 +105,6 @@ export default function Watchlist() {
       ) : (
         <StockTable stocks={rows} sort={sort} onSort={(key) => setSort((current) => toggleSort(current, key))} />
       )}
-      <p className="watch-foot">Prices are simulated. Your watchlist is saved in this browser.</p>
     </div>
   )
 }

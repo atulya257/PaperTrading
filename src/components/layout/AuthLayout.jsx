@@ -1,5 +1,6 @@
-import { Info, LineChart, Wallet, ShieldCheck } from 'lucide-react'
-import { DEMO_DISCLAIMER, INITIAL_CAPITAL } from '../../config/constants.js'
+import { LineChart, Wallet, ShieldCheck } from 'lucide-react'
+import MarketMap from '../markets/MarketMap.jsx'
+import { INITIAL_CAPITAL } from '../../config/constants.js'
 import { formatINR } from '../../utils/format.js'
 import './AuthLayout.css'
 
@@ -8,18 +9,6 @@ const POINTS = [
   { icon: LineChart, text: 'Trade a simulated market that moves while you watch' },
   { icon: ShieldCheck, text: 'No real money, no broker, no risk' },
 ]
-
-export function AuthNotice() {
-  return (
-    <p className="auth-notice">
-      <Info size={16} aria-hidden="true" />
-      <span>
-        <strong>Secure sign-in.</strong> Your account is kept by the TradeLab User Service and your password is stored
-        only as a BCrypt hash. All money in TradeLab is virtual.
-      </span>
-    </p>
-  )
-}
 
 export default function AuthLayout({ title, subtitle, children, footer }) {
   return (
@@ -35,8 +24,8 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
               </li>
             ))}
           </ul>
+          <MarketMap linked={false} className="auth-map" />
         </div>
-        <p className="auth-brand-foot">{DEMO_DISCLAIMER}</p>
       </aside>
 
       <main className="auth-main" id="main">
@@ -44,7 +33,6 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
           <h1>{title}</h1>
           {subtitle && <p className="auth-subtitle">{subtitle}</p>}
           {children}
-          <AuthNotice />
         </div>
         {footer && <p className="auth-footer">{footer}</p>}
       </main>

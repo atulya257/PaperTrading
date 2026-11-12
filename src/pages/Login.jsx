@@ -10,7 +10,7 @@ import { usePageTitle } from '../hooks/usePageTitle.js'
 
 export default function Login() {
   usePageTitle('Log in')
-  const { login, guestLogin } = useAuth()
+  const { login } = useAuth()
   const location = useLocation()
   const [email, setEmail] = useState(location.state?.email ?? '')
   const [password, setPassword] = useState('')
@@ -102,10 +102,6 @@ export default function Login() {
         </Button>
       </form>
 
-      <div className="auth-divider">or</div>
-      <Button variant="secondary" size="lg" block disabled={busy} onClick={() => finish(() => guestLogin(), '/dashboard')}>
-        Try demo instantly
-      </Button>
     </AuthLayout>
   )
 }

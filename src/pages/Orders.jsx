@@ -52,7 +52,6 @@ export default function Orders() {
     <div className="orders-page">
       <header className="page-head">
         <h1>Orders</h1>
-        <p className="page-sub">Limit orders waiting for their price, and every order that has filled.</p>
       </header>
 
       <OpenOrders />
@@ -67,9 +66,7 @@ export default function Orders() {
                 Find a stock to buy
               </Button>
             }
-          >
-            When you buy or sell, each order is recorded here with its price, total and profit or loss.
-          </EmptyState>
+          />
         </Card>
       ) : (
         <>

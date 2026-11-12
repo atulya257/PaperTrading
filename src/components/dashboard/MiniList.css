@@ -1,10 +1,15 @@
 .see-all {
-  color: var(--brand);
+  color: var(--text);
   font-weight: 600;
   font-size: var(--text-sm);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
 }
 .see-all:hover {
-  text-decoration: underline;
+  text-decoration-color: var(--text);
 }
 .mini-list {
   list-style: none;
@@ -22,8 +27,19 @@
   min-height: 56px;
   padding: var(--space-2) 0;
 }
-.mini-row:hover .mini-main strong {
-  color: var(--brand);
+.mini-row {
+  margin: 0 calc(-1 * var(--space-3));
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease);
+}
+.mini-row:hover {
+  background: var(--surface-2);
+}
+.mini-main strong {
+  font-stretch: var(--wide);
+  font-weight: 750;
 }
 .mini-main {
   display: flex;

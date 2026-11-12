@@ -23,7 +23,6 @@ export function reservedCash(account) {
   return (account.openOrders ?? []).reduce((sum, o) => (o.side === SIDE.BUY ? sum + o.quantity * o.limitPrice : sum), 0)
 }
 
-/** Cash that is not set aside for open buy orders. */
 export const freeCash = (account) => account.cash - reservedCash(account)
 
 /** Shares of a stock already promised to open sell orders. */
@@ -34,7 +33,6 @@ export function reservedShares(account, symbol) {
   )
 }
 
-/** Shares of a stock that are not promised to open sell orders. */
 export const freeShares = (account, symbol) => (account.holdings[symbol]?.quantity ?? 0) - reservedShares(account, symbol)
 
 const fail = (code, message, details) => ({ ok: false, error: { code, message, ...(details ? { details } : {}) } })

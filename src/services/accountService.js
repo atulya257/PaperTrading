@@ -31,7 +31,3 @@ export async function resetAccount(userId, { sessionDate }) {
   storage.write(STORAGE_KEYS.account(userId), fresh)
   return fresh
 }
-
-export async function deleteAccount(userId) {
-  storage.remove(STORAGE_KEYS.account(userId))
-}

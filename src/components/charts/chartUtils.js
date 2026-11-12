@@ -12,3 +12,34 @@ export function tickLabel(range, t) {
 
 export const GRID_STROKE = 'var(--border)'
 export const AXIS_TICK = { fill: 'var(--text-faint)', fontSize: 12 }
+
+/** Round axis values (steps of 1, 2 or 5 × 10^n) that cover lo..hi with about `count` gaps. */
+export function niceTicks(lo, hi, count = 4) {
+  const span = hi - lo || Math.abs(hi) * 0.01 || 1
+  const raw = span / count
+  const magnitude = 10 ** Math.floor(Math.log10(raw))
+  const step = [1, 2, 5, 10].map((m) => m * magnitude).find((s) => s >= raw)
+  const first = Math.floor(lo / step) * step
+  const ticks = []
+  for (let v = first; v < hi + step; v += step) ticks.push(Math.round(v * 100) / 100)
+  return ticks
+}
+
+/** Evenly spaced times between t0 and t1, skipping any whose label would repeat the previous one. */
+export function timeTicks(range, t0, t1, count = 5) {
+  const ticks = []
+  let previous = null
+  for (let i = 0; i < count; i++) {
+    const t = t0 + ((t1 - t0) * i) / (count - 1)
+    const label = tickLabel(range, t)
+    if (label !== previous) ticks.push(t)
+    previous = label
+  }
+  return ticks
+}
+
+/** The original point under the pointer, from a Recharts mouse/touch event, or null. */
+export function pointAtEvent(state, points) {
+  const i = Number(state?.activeTooltipIndex)
+  return Number.isInteger(i) && points[i] ? points[i] : null
+}

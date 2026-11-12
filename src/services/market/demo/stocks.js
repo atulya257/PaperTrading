@@ -78,7 +78,6 @@ export const STOCKS = [
     'Steel manufacturer with a large domestic capacity.'),
 ]
 
-export const SECTORS = [...new Set(STOCKS.map((s) => s.sector))].sort()
 
 export function toPublicStock({ sim: _sim, basePrice: _basePrice, marketCapCr, ...rest }) {
   return { ...rest, marketCap: marketCapCr * 1e7 }

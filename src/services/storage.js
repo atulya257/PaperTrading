@@ -103,3 +103,16 @@ export function clearAllAppData() {
   } catch {
   }
 }
+
+export function removeOlderVersions(currentPrefix) {
+  try {
+    const store = backend()
+    if (!store) return
+    for (let i = store.length - 1; i >= 0; i--) {
+      const key = store.key(i)
+      if (key && key.startsWith('tradelab:') && !key.startsWith(currentPrefix)) store.removeItem(key)
+    }
+  } catch {
+    // storage is blocked; nothing to clean
+  }
+}

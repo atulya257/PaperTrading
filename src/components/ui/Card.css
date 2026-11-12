@@ -2,6 +2,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
   padding: var(--space-5);
 }
 .card-header {
@@ -14,6 +15,7 @@
 }
 .card-title {
   font-size: var(--text-lg);
+  font-weight: 700;
 }
 .card-actions {
   display: flex;

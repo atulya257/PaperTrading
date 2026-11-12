@@ -7,7 +7,6 @@ const TIMEOUT_MS = 3000
 // How a stock moves when the Stock Service doesn't say (for example one added with a minimal POST).
 const DEFAULT_SIM = { beta: 1, sectorLoad: 1, dailyVol: 0.014 }
 
-/** Turns one stock from GET /api/stocks into the shape the market simulator uses. */
 function fromService(s) {
   const price = Number(s.price)
   if (typeof s.symbol !== 'string' || !s.symbol || !(price > 0)) return null
@@ -28,10 +27,7 @@ function fromService(s) {
   }
 }
 
-/**
- * Loads the list of tradable stocks from the Stock Service (GET :8081/api/stocks).
- * If the service is not running, the app still works with its built-in list and says so.
- */
+// Falls back to the built-in list when the Stock Service is not running
 export async function loadStockCatalog() {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)

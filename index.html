@@ -3,10 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#0a101d" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3f4f0" />
+    <script>
+      // Set the saved theme before the page is drawn, so dark mode never flashes white
+      try {
+        var saved = JSON.parse(localStorage.getItem('tradelab:v2:prefs'))
+        var theme = saved && saved.data && saved.data.theme
+        document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light'
+      } catch (e) {}
+    </script>
     <meta name="description" content="TradeLab — practice stock trading with virtual money on a simulated Indian market. Demo data only." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="data:," />
     <title>TradeLab — Paper trading simulator</title>
   </head>
   <body>

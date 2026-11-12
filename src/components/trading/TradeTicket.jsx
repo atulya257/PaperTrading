@@ -184,7 +184,7 @@ export default function TradeTicket({ symbol, initialSide = SIDE.BUY, onExecuted
       </div>
 
       {isLimit && (
-        <div className="ticket-field">
+        <div className="ticket-field ticket-appear">
           <label htmlFor={priceId} className="ticket-label">
             Limit price
           </label>

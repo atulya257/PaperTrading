@@ -19,16 +19,11 @@ import { dateKey, prevTradingDay } from './dates.js'
 import { getSampleNews } from './news.js'
 
 export const SOURCE = 'demo-simulation'
-export const SPEEDS = { calm: 2000, normal: 1000, fast: 400 }
+export const TICK_MS = 1000
 export const PERSIST_MS = 2000
 export const FOLLOWER_TIMEOUT_MS = 6000
 export const MAX_CATCHUP_TICKS = 300
 export const WARMUP_TICKS = 240
-export const SPEED_OPTIONS = [
-  { value: 'calm', label: 'Calm', description: 'Gentle movement — a trading day of volatility takes about 20 minutes.' },
-  { value: 'normal', label: 'Normal', description: 'The default — about 10 minutes per trading day.' },
-  { value: 'fast', label: 'Fast', description: 'A whole trading day in about 4 minutes. Good for demos.' },
-]
 const WATCH_MS = 2000
 const PERIOD_DAYS = { '1M': 30, '3M': 91, '6M': 182, '1Y': 366 }
 const WEEK_MS = 7 * 86_400_000
@@ -82,7 +77,7 @@ export function createDemoMarketProvider({
     const sessionDate = dateKey(t)
     const baseEndDate = prevTradingDay(sessionDate)
     ensureBase(baseEndDate)
-    const tickMs = SPEEDS.normal
+    const tickMs = TICK_MS
     const startTime = t - WARMUP_TICKS * tickMs
     const s = createInitialState({
       seed: useSeed ?? seed ?? randomSeed(),
@@ -156,7 +151,7 @@ export function createDemoMarketProvider({
       moodLabel: moodLabel(mood),
       breadth,
       sessionDate: state.sessionDate,
-      status: { following: mode === 'follower', speed: state.speed },
+      status: { following: mode === 'follower' },
       asOf: state.lastTickAt,
       source: SOURCE,
     }
@@ -174,7 +169,7 @@ export function createDemoMarketProvider({
   }
 
   function tick(t = now()) {
-    const tickMs = SPEEDS[state.speed]
+    const tickMs = TICK_MS
     if (t - state.lastTickAt > tickMs * 3) catchUp(t)
     ensureSession(t)
     stepMarket(state, sim, t)
@@ -184,7 +179,7 @@ export function createDemoMarketProvider({
   }
 
   function catchUp(t = now()) {
-    const tickMs = SPEEDS[state.speed]
+    const tickMs = TICK_MS
     const elapsed = t - state.lastTickAt
     if (elapsed < tickMs * 2) return 0
     ensureSession(t)
@@ -216,7 +211,7 @@ export function createDemoMarketProvider({
   function startTimer() {
     stopTimer()
     if (!started || mode !== 'leader' || hidden()) return
-    timer = setInterval(() => tick(), SPEEDS[state.speed])
+    timer = setInterval(() => tick(), TICK_MS)
   }
   function stopWatch() {
     if (watchTimer) clearInterval(watchTimer)
@@ -282,10 +277,9 @@ export function createDemoMarketProvider({
       becomeFollower(data, t)
       return
     }
+    // Another tab reset the market: take its new state
     if (data.controlRev > state.controlRev) {
-      state.speed = data.speed
-      state.controlRev = data.controlRev
-      refresh()
+      adopt(data)
       startTimer()
     }
   }
@@ -374,8 +368,6 @@ export function createDemoMarketProvider({
       return [...simulated, ...sample].sort((a, b) => b.publishedAt - a.publishedAt).slice(0, limit)
     },
 
-    getSpeedOptions: () => SPEED_OPTIONS,
-
     start() {
       if (started) return
       started = true
@@ -394,15 +386,10 @@ export function createDemoMarketProvider({
       window.removeEventListener('pagehide', onPageHide)
       document.removeEventListener('visibilitychange', onVisibility)
     },
-    setSpeed(name) {
-      if (!SPEEDS[name]) return
-      takeControl(() => (state.speed = name))
-    },
     reset(newSeed) {
       takeControl(() => {
-        const { speed, controlRev } = state
+        const { controlRev } = state
         state = freshState(newSeed)
-        state.speed = speed
         state.controlRev = controlRev
       })
     },

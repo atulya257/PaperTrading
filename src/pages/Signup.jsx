@@ -10,7 +10,7 @@ import { usePageTitle } from '../hooks/usePageTitle.js'
 
 export default function Signup() {
   usePageTitle('Create account')
-  const { signup, guestLogin } = useAuth()
+  const { signup } = useAuth()
   const location = useLocation()
   const [name, setName] = useState('')
   const [email, setEmail] = useState(location.state?.email ?? '')
@@ -112,10 +112,6 @@ export default function Signup() {
         </Button>
       </form>
 
-      <div className="auth-divider">or</div>
-      <Button variant="secondary" size="lg" block disabled={busy} onClick={() => finish(() => guestLogin(), '/dashboard')}>
-        Try demo instantly
-      </Button>
     </AuthLayout>
   )
 }

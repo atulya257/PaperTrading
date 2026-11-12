@@ -19,6 +19,7 @@
 .pulse-value {
   margin-top: 2px;
   font-family: var(--font-display);
+  font-stretch: var(--wide);
   font-size: var(--text-xl);
   font-weight: 600;
   line-height: 1.25;

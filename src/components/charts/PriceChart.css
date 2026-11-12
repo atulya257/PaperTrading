@@ -3,6 +3,14 @@
   height: 340px;
   min-width: 0;
 }
+.chart-fade {
+  animation: chart-fade var(--dur-slow) var(--ease);
+}
+@keyframes chart-fade {
+  from {
+    opacity: 0;
+  }
+}
 .chart-frame .recharts-wrapper {
   font-variant-numeric: tabular-nums;
 }
@@ -13,6 +21,15 @@
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-2);
   font-size: var(--text-sm);
+}
+.chart-time {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
 }
 .chart-tooltip-price {
   font-weight: 700;

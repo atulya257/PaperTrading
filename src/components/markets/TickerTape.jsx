@@ -26,7 +26,6 @@ function TickerItem({ symbol, quote, linked }) {
   )
 }
 
-/** A scrolling strip of every stock's price, like the tape on a trading floor. Pauses when hovered. */
 export default function TickerTape({ linked = true }) {
   const { quotes } = useMarketSnapshot()
   const stocks = useStocks()

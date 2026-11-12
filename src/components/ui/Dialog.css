@@ -82,10 +82,26 @@
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     border-bottom: 0;
     padding-bottom: env(safe-area-inset-bottom);
-    animation: dialog-slide var(--dur) var(--ease);
+    animation: dialog-slide var(--dur-slow) var(--ease);
   }
   .dialog-top {
     padding: var(--space-3);
+  }
+}
+
+/* Closing: the same path back, faster, and no longer clickable */
+.dialog-root.is-closing {
+  pointer-events: none;
+}
+.is-closing .dialog-backdrop {
+  animation: dialog-fade-out var(--dur-exit) var(--ease-in) forwards;
+}
+.dialog-root.is-closing .dialog-panel {
+  animation: dialog-pop-out var(--dur-exit) var(--ease-in) forwards;
+}
+@media (max-width: 767px) {
+  .dialog-root.dialog-sheet.is-closing .dialog-panel {
+    animation: dialog-slide-out var(--dur) var(--ease-in) forwards;
   }
 }
 
@@ -97,11 +113,27 @@
 @keyframes dialog-pop {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(8px) scale(0.96);
   }
 }
 @keyframes dialog-slide {
   from {
+    transform: translateY(100%);
+  }
+}
+@keyframes dialog-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialog-pop-out {
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+@keyframes dialog-slide-out {
+  to {
     transform: translateY(100%);
   }
 }

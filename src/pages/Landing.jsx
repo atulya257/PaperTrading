@@ -1,42 +1,29 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button.jsx'
-import MarketBoard from '../components/landing/MarketBoard.jsx'
+import MarketMap from '../components/markets/MarketMap.jsx'
 import TickerTape from '../components/markets/TickerTape.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useStocks } from '../hooks/useMarketData.js'
 import './Landing.css'
 
 const STEPS = [
-  { title: 'Start with ₹10,00,000', text: 'Create a free account, or try it as a guest without signing up.' },
+  { title: 'Start with ₹10,00,000', text: 'Create a free account with your email and a password.' },
   { title: 'Find a stock', text: 'Browse the market, open a chart and see how the price moved over a day, a month or a year.' },
   { title: 'Buy, sell and learn', text: 'Your holdings, profit and loss and order history update as prices move.' },
 ]
 
 export default function Landing() {
-  const { isAuthenticated, guestLogin } = useAuth()
-  const navigate = useNavigate()
-  const [busy, setBusy] = useState(false)
+  const { isAuthenticated } = useAuth()
   const stocks = useStocks()
   const sectorCount = new Set(stocks.map((s) => s.sector)).size
-
-  async function tryDemo() {
-    setBusy(true)
-    await guestLogin()
-    navigate('/dashboard')
-  }
 
   return (
     <div className="landing">
       <header className="landing-top">
         <nav className="landing-nav" aria-label="Account">
-          <Button to="/dashboard" variant="ghost">
-            Dashboard
-          </Button>
           <Button to="/login" state={{ allowAuthenticated: true }} variant="ghost">
             Log in
           </Button>
-          <Button to="/signup" state={{ allowAuthenticated: true }} variant="accent">
+          <Button to="/signup" state={{ allowAuthenticated: true }}>
             Sign up
           </Button>
         </nav>
@@ -44,36 +31,35 @@ export default function Landing() {
       <TickerTape linked={false} />
 
       <main id="main">
-        <div className="hero-band">
-          <section className="hero">
-            <div className="hero-copy">
-              <h1 className="hero-name">TradeLab</h1>
-              <p className="hero-title">Practise trading Indian stocks with ₹10 lakh of pretend money.</p>
-              <p className="hero-sub">
-                Buy and sell {stocks.length} well-known NSE companies in a simulated market whose prices move while you
-                watch. Nothing you do here costs real money, so it is a safe place to learn how orders, holdings and
-                profit and loss work.
-              </p>
-              <div className="hero-actions">
-                {isAuthenticated ? (
-                  <Button to="/dashboard" size="lg" variant="accent">
-                    Go to dashboard
+        <section className="hero">
+          <div className="hero-copy">
+            <h1 className="hero-title">Practise trading Indian stocks with ₹10 lakh of pretend money.</h1>
+            <p className="hero-sub">
+              TradeLab is a simulated market of {stocks.length} well-known NSE companies. Prices move every second, so you
+              can learn how orders, holdings and profit and loss work without risking a rupee.
+            </p>
+            <div className="hero-actions">
+              {isAuthenticated ? (
+                <Button to="/dashboard" size="lg" variant="accent">
+                  Go to dashboard
+                </Button>
+              ) : (
+                <>
+                  <Button to="/signup" size="lg" variant="accent">
+                    Create an account
                   </Button>
-                ) : (
-                  <>
-                    <Button to="/signup" size="lg" variant="accent">
-                      Create an account
-                    </Button>
-                    <Button size="lg" variant="secondary" onClick={tryDemo} loading={busy}>
-                      Try it as a guest
-                    </Button>
-                  </>
-                )}
-              </div>
+                  <Button to="/login" state={{ allowAuthenticated: true }} size="lg" variant="secondary">
+                    Log in
+                  </Button>
+                </>
+              )}
             </div>
-            <MarketBoard />
-          </section>
-        </div>
+          </div>
+
+          <figure className="hero-map">
+            <MarketMap className="mmap-tall" />
+          </figure>
+        </section>
 
         <section className="section" aria-labelledby="features-title">
           <h2 id="features-title" className="section-title">
@@ -89,7 +75,10 @@ export default function Landing() {
             </div>
             <div>
               <dt>Place buy and sell orders</dt>
-              <dd>Pick a quantity, check the total and confirm. Orders fill straight away at the current price.</dd>
+              <dd>
+                Buy straight away at the current price, or set your own price with a limit order and let it fill by
+                itself.
+              </dd>
             </div>
             <div>
               <dt>Track your portfolio</dt>
@@ -144,9 +133,6 @@ export default function Landing() {
         </section>
       </main>
 
-      <footer className="landing-footer">
-        <p>TradeLab was built as a Full Stack Web Development course project. All prices are simulated.</p>
-      </footer>
     </div>
   )
 }

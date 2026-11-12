@@ -10,20 +10,23 @@ export default function TopBar({ onSearch }) {
 
   return (
     <header className="topbar">
-      <button type="button" className="search-trigger" onClick={onSearch} aria-label="Search stocks">
-        <Search size={17} aria-hidden="true" />
-        <span className="search-trigger-text">Search stocks by name or symbol</span>
-      </button>
+      <div className="topbar-inner">
+        <span className="topbar-spacer" aria-hidden="true" />
+        <button type="button" className="search-trigger" onClick={onSearch} aria-label="Search stocks">
+          <Search size={18} strokeWidth={2.2} className="search-trigger-icon" aria-hidden="true" />
+          <span className="search-trigger-text">Search stocks</span>
+        </button>
 
-      <div className="topbar-actions">
-        <div className="cash" title="Virtual cash you can spend">
-          <span className="cash-label">Cash</span>
-          <span className="num cash-value">{formatINR(account.cash)}</span>
+        <div className="topbar-actions">
+          <div className="topbar-cash" title="Cash you can trade with">
+            <span className="topbar-cash-label">Cash</span>
+            <span className="num">{formatINR(account.cash)}</span>
+          </div>
+          <NavLink to="/settings" className="settings-link" aria-label="Settings" title="Settings">
+            <Settings size={19} aria-hidden="true" />
+          </NavLink>
+          <UserMenu />
         </div>
-        <NavLink to="/settings" className="settings-link" aria-label="Settings" title="Settings">
-          <Settings size={19} aria-hidden="true" />
-        </NavLink>
-        <UserMenu />
       </div>
     </header>
   )

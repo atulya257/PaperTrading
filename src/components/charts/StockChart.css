@@ -1,8 +1,13 @@
-.chart-title {
-  display: inline-flex;
+.stock-chart {
+  margin: 0 calc(-1 * var(--space-2));
+}
+.chart-bar {
+  display: flex;
   align-items: center;
-  gap: var(--space-3);
+  justify-content: space-between;
   flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-3) var(--space-2) 0;
 }
 .chart-period-change {
   display: inline-flex;
@@ -18,7 +23,7 @@
   height: 340px;
 }
 .chart-note {
-  margin-top: var(--space-3);
+  margin: var(--space-3) var(--space-2) 0;
   font-size: var(--text-xs);
   color: var(--text-faint);
 }
@@ -31,9 +36,7 @@
   color: var(--text);
   font-weight: 600;
 }
-.stock-chart .card-header {
-  flex-wrap: wrap;
-}
+
 @media (max-width: 1023px) {
   .chart-skeleton {
     height: 300px;
@@ -43,7 +46,7 @@
   .chart-skeleton {
     height: 240px;
   }
-  .stock-chart .card-actions {
+  .chart-bar .segmented {
     width: 100%;
   }
 }

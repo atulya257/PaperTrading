@@ -14,7 +14,25 @@
   color: var(--text-muted);
 }
 .crumbs a:hover {
-  color: var(--brand);
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+.stock-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+}
+@media (max-width: 640px) {
+  .stock-hero {
+    padding: var(--space-5) var(--space-4);
+  }
 }
 .crumbs [aria-current] {
   color: var(--text);
@@ -29,7 +47,7 @@
 }
 @media (min-width: 1024px) {
   .stock-layout {
-    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-columns: minmax(0, 1fr) 360px;
   }
 }
 .stock-main {
@@ -62,15 +80,16 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* Sits just above the phone tab bar */
+  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
   z-index: 35;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
-  background: var(--bg-elevated);
+  background: var(--bar-bg);
   border-top: 1px solid var(--border);
+  backdrop-filter: blur(12px);
 }
 @media (max-width: 1023px) {
   .stock-page {

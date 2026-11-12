@@ -7,6 +7,10 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Always keep room for the scrollbar, so short and long pages line up the same */
+  scrollbar-gutter: stable;
+  /* No blue flash when tapping on phones; buttons have their own press effect */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -17,6 +21,8 @@ body {
   font-size: var(--text-base);
   line-height: 1.5;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -31,7 +37,28 @@ h4 {
 }
 h1 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-stretch: var(--wide);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+h2,
+h3 {
+  letter-spacing: -0.01em;
+}
+
+.link,
+.page-sub a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+.link:hover,
+.page-sub a:hover {
+  text-decoration-color: var(--text);
 }
 
 p {
@@ -66,6 +93,11 @@ table,
 input[type='number'] {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 :focus-visible {
@@ -116,7 +148,9 @@ input[type='number'] {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 }

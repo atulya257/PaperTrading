@@ -5,6 +5,7 @@ const ToastContext = createContext(null)
 const DURATION = { success: 4000, info: 5000, error: 7000 }
 const RESUME_MS = 2500
 const MAX_VISIBLE = 4
+const EXIT_MS = 150 // matches the toast-out animation
 
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([])
@@ -16,7 +17,8 @@ export function ToastProvider({ children }) {
     const timer = timers.current.get(id)
     if (timer) clearTimeout(timer.timeout)
     timers.current.delete(id)
-    setToasts((list) => list.filter((t) => t.id !== id))
+    setToasts((list) => list.map((t) => (t.id === id ? { ...t, leaving: true } : t)))
+    setTimeout(() => setToasts((list) => list.filter((t) => t.id !== id)), EXIT_MS)
   }, [])
 
   const start = useCallback(

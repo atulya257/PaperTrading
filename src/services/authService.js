@@ -1,9 +1,7 @@
 import { STORAGE_KEYS } from '../config/constants.js'
 import { USER_SERVICE_URL } from '../config/services.js'
-import { newId } from '../utils/id.js'
 import * as storage from './storage.js'
 
-// Accounts live in the TradeLab User Service (Spring Boot on port 8082, MySQL).
 const API = `${USER_SERVICE_URL}/api/users`
 
 export const AUTH_ERRORS = {
@@ -73,11 +71,14 @@ function fromServerError(res, fallbackField) {
   return fail(res.data.code, res.data.field ?? fallbackField, res.data.message)
 }
 
-/** Restores the saved login, and checks with the User Service that the account still exists. */
 export async function getSession() {
   const session = readSession()
   if (!session) return null
-  if (session.user.isGuest || !session.user.serverId) return session.user
+  // Guest sessions from older versions are no longer valid: everyone needs an account.
+  if (session.user.isGuest || !session.user.serverId) {
+    storage.remove(STORAGE_KEYS.session)
+    return null
+  }
   const res = await request(`/${session.user.serverId}`)
   if (res.networkError || res.status >= 500) return session.user // service restarting: keep the user
   if (!res.ok || normalizeEmail(res.data?.email) !== session.user.email) {
@@ -118,11 +119,6 @@ export async function login({ email, password }) {
   if (res.ok) return signedIn(toUser(res.data))
   // A wrong password belongs under the password box; a locked account is a general message.
   return fromServerError(res, res.data?.code === AUTH_ERRORS.INVALID_CREDENTIALS ? 'password' : null)
-}
-
-/** "Try demo instantly": a guest that only exists in this browser, no account needed. */
-export async function guest() {
-  return signedIn({ id: `guest:${newId()}`, name: 'Guest', email: null, isGuest: true, createdAt: Date.now() })
 }
 
 export async function logout() {

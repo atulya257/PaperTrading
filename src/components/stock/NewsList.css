@@ -29,13 +29,6 @@
   font-size: var(--text-xs);
   color: var(--text-faint);
 }
-.news-source {
-  padding: 1px 8px;
-  border-radius: var(--radius-pill);
-  background: var(--demo-soft);
-  color: var(--demo);
-  font-weight: 600;
-}
 .news-loading {
   display: flex;
   flex-direction: column;
@@ -49,11 +42,6 @@
   background: var(--surface-2);
   color: var(--text);
   font-weight: 600;
-}
-
-.news-source.source-simulated {
-  background: color-mix(in srgb, var(--info) 16%, transparent);
-  color: var(--info);
 }
 .news-move {
   display: inline-flex;

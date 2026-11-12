@@ -8,7 +8,6 @@ const MarketContext = createContext(null)
 export function MarketProvider({ provider: injected, children }) {
   const [provider, setProvider] = useState(injected ?? null)
 
-  // The list of stocks comes from the Stock Service; the market is created once it has arrived.
   useEffect(() => {
     if (injected) return
     let cancelled = false

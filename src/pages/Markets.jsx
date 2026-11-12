@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { SearchX } from 'lucide-react'
+import MarketMap from '../components/markets/MarketMap.jsx'
 import MarketPulse from '../components/markets/MarketPulse.jsx'
 import Movers from '../components/markets/Movers.jsx'
 import StockTable from '../components/markets/StockTable.jsx'
@@ -7,7 +8,6 @@ import Button from '../components/ui/Button.jsx'
 import EmptyState from '../components/ui/EmptyState.jsx'
 import { useMarketSnapshot, useStocks } from '../hooks/useMarketData.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import { useMarket } from '../context/MarketContext.jsx'
 import { filterStocks, sortStocks, toggleSort } from '../utils/search.js'
 import './Markets.css'
 
@@ -23,7 +23,6 @@ export default function Markets() {
   usePageTitle('Markets')
   const stocks = useStocks()
   const { quotes } = useMarketSnapshot()
-  const catalogSource = useMarket().getCatalogSource?.()
   const [query, setQuery] = useState('')
   const [sector, setSector] = useState('All')
   const [sort, setSort] = useState({ key: 'marketCap', dir: 'desc' })
@@ -40,15 +39,16 @@ export default function Markets() {
   return (
     <div className="markets">
       <header className="page-head">
-        <div>
-          <h1>Markets</h1>
-          <p className="page-sub">
-            {stocks.length} stocks. Prices are simulated and update every second.
-          </p>
-        </div>
+        <h1>Markets</h1>
       </header>
 
       <MarketPulse />
+      <section aria-labelledby="map-title">
+        <h2 id="map-title" className="section-heading">
+          Market map
+        </h2>
+        <MarketMap />
+      </section>
       <Movers />
 
       <section aria-labelledby="all-stocks">
@@ -100,12 +100,6 @@ export default function Markets() {
         ) : (
           <StockTable stocks={visible} sort={sort} onSort={onSort} />
         )}
-        <p className="markets-foot">
-          Prices are simulated, not real market data.{' '}
-          {catalogSource === 'stock-service'
-            ? `${stocks.length} stocks loaded from the TradeLab Stock Service.`
-            : 'The Stock Service is not running, so the built-in stock list is shown.'}
-        </p>
       </section>
     </div>
   )
