@@ -1,2 +1,19 @@
+# Dependencies and build output (recreated by npm install, npm run build and mvnw)
 node_modules
 dist
+target/
+*.log
+
+# Local secrets
+.env
+.env.local
+.env.*.local
+
+# Personal editor and tool settings
+.idea/
+*.iml
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db

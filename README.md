@@ -1,61 +1,232 @@
 # TradeLab
 
-TradeLab is a **paper trading simulator for Indian stocks** built using React, with a Spring Boot backend (in `backend/`) for user accounts and the trading API.
+A paper-trading simulator for Indian stocks. Each user starts with ₹10,00,000 of virtual money and can buy and sell 27 NSE-listed companies in a simulated market whose prices move every second, with no real money or broker involved.
 
-It allows users to practice buying and selling stocks using virtual money without using real money or connecting to a real stock market.
+![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Vite 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![Java 25](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot 3.5](https://img.shields.io/badge/Spring%20Boot-3.5-6DB33F?logo=springboot&logoColor=white)
+![MySQL 8](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+
+Built as a BTech Computer Science full-stack project: a React frontend, two Spring Boot microservices with their own databases, and the earlier single-application Spring Boot backend it grew out of.
+
+## Why
+
+Learning how orders, holdings and profit and loss work is easier by doing it, but practising with real money is risky. TradeLab gives a realistic-feeling market to practise in: you place market or limit orders, watch your portfolio change as prices move, and see exactly what each trade did to your cash and profit.
+
+> Prices are simulated in the browser, not live market data. Company details and news are sample data.
+
+## Screenshots
+
+Captured from the running app with a demo account.
+
+![Dashboard with portfolio value, today's change and the value chart](docs/screenshots/dashboard.png)
+
+| | |
+|---|---|
+| ![Landing page with the live market map](docs/screenshots/landing.png) | ![Markets page with the index, mood, breadth and market map](docs/screenshots/markets.png) |
+| **Landing page:** live market map and sign-up | **Markets:** TradeLab index, mood, breadth and the market map |
+| ![Stock page with price chart and trade ticket](docs/screenshots/stock-detail.png) | ![Portfolio holdings with average price and profit and loss](docs/screenshots/portfolio.png) |
+| **Stock detail:** price chart and the trade ticket (market and limit orders) | **Portfolio:** holdings, average price, profit and loss |
+| ![Orders page with open limit orders and filled orders](docs/screenshots/orders.png) | ![Watchlist with five stocks](docs/screenshots/watchlist.png) |
+| **Orders:** open limit orders and order history | **Watchlist:** watched stocks and the Add stock picker |
+| ![News page with sample and simulated headlines](docs/screenshots/news.png) | ![Stock page in the dark theme](docs/screenshots/dark-mode.png) |
+| **News:** sample headlines and simulated price-move headlines | **Dark theme:** selected in Settings |
+
+**On a phone**
+
+<p>
+  <img src="docs/screenshots/mobile-dashboard.png" alt="Dashboard at phone width" width="260">
+  <img src="docs/screenshots/mobile-stock-detail.png" alt="Stock page at phone width with Buy and Sell buttons" width="260">
+  <img src="docs/screenshots/mobile-markets.png" alt="Markets page at phone width" width="260">
+</p>
 
 ## Features
 
-- Virtual starting balance of ₹10,00,000
-- Simulated stock prices that change over time
-- Buy and sell stocks
-- Portfolio and holdings tracking
-- Profit and Loss tracking
-- Watchlist
-- Order history
-- Stock search
-- Stock details and price charts
-- Market overview
-- Simulated news
-- Sign up and log in with a password (stored as a BCrypt hash on the server)
-- Account locks for 15 minutes after 5 wrong passwords
-- Responsive design for desktop and mobile
-- Portfolio data saved per user using localStorage
+**Accounts** (User Service)
+- Sign up and log in. Passwords are stored only as BCrypt hashes.
+- After 5 wrong passwords in 15 minutes the account is locked for 15 minutes.
+- The session is checked against the User Service when the app reloads.
 
-## Technologies Used
+**Simulated market** (in the browser)
+- 27 NSE companies across 11 sectors, loaded from the Stock Service. If the service is not running, the app uses a built-in copy of the same list.
+- Prices update every second and are influenced by market-wide and sector-wide moves.
+- A scrolling price ticker, a market map sized by company value and coloured by today's change, a TradeLab index, market mood and breadth.
 
-- React
-- JavaScript
-- React Router
-- CSS
-- Recharts
-- Vite
-- localStorage
-- Spring Boot, Spring Data JPA, Spring Security and H2 (backend)
+**Trading** (in the browser)
+- Market orders fill immediately at the simulated price.
+- Limit orders set aside the cash or shares they need and fill automatically when the price reaches the limit. Open orders can be cancelled.
+- Checks for available cash, shares held and order size, with a preview before confirming.
+- Quantity shortcuts (25%, 50%, Max).
 
-## How to Run
+**Portfolio and tracking**
+- Holdings with average cost, current value, and unrealised and realised profit and loss.
+- A portfolio value chart (1H, Today, All) and stock price charts (1D to 1Y), each with a "View as table" option.
+- Order history, a watchlist with a searchable "Add stock" picker, and stock search from the header.
+- News: sample headlines plus simulated headlines generated by big price moves, filterable to the stocks you hold.
 
-The app talks to two Spring Boot microservices (see `services/README.md`). Start them first:
+**Interface**
+- Light and dark themes (Settings).
+- Works on phones, including from a phone on the same Wi-Fi as the computer running it.
+- Reset the simulator to start again with fresh cash and a new market.
+- Each user's portfolio, orders and watchlist are saved in the browser per user and stay in sync across open tabs.
 
-```bash
-cd services/stock-service && ./mvnw spring-boot:run      # port 8081, H2
-cd services/user-service  && ./mvnw spring-boot:run      # port 8082, MySQL (set MYSQL_PASSWORD first)
+**Earlier monolithic backend** (`backend-monolith/`, not used by the React app)
+- Server-side trading with JPA entity relationships, Spring Security with JWT tokens, per-account access checks and 22 tests. See [backend-monolith/README.md](backend-monolith/README.md).
+
+## Technology stack
+
+| Category | Technologies |
+|---|---|
+| Frontend | React 19, React Router 7, Vite 8, Recharts 3, lucide-react (icons), Archivo variable font, plain CSS with custom properties |
+| Backend | Java 25, Spring Boot 3.5 (Spring Web, Spring Data JPA / Hibernate), spring-security-crypto (BCrypt). The monolith also uses Spring Security, OAuth2 Resource Server (JWT) and Bean Validation |
+| Database | MySQL 8 (User Service), H2 in-memory (Stock Service and the monolith), browser localStorage (portfolios) |
+| Testing | JUnit 5, Spring Boot Test, MockMvc, Mockito (monolith) |
+| Development tools | npm, Maven Wrapper, ESLint 10, Git |
+| APIs and integrations | REST/JSON between the React app and the services, with CORS. No third-party market-data APIs |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph Browser
+        UI["React app<br/>(Vite dev server :5173)"]
+        SIM["Market simulator<br/>and trading engine"]
+        LS[("localStorage<br/>portfolios, orders,<br/>watchlist, theme")]
+        UI --- SIM
+        SIM --- LS
+    end
+
+    subgraph Microservices
+        SS["Stock Service<br/>Spring Boot :8081"]
+        US["User Service<br/>Spring Boot :8082"]
+        H2[("H2 in memory<br/>stockdb")]
+        MY[("MySQL<br/>tradelab_users")]
+        SS --> H2
+        US --> MY
+    end
+
+    UI -- "GET /api/stocks" --> SS
+    UI -- "POST /api/users, /api/users/login<br/>GET /api/users/{id}" --> US
+
+    MONO["backend-monolith<br/>Spring Boot :8080<br/>(standalone, not connected)"]
+    H2M[("H2 in memory<br/>tradelabdb")]
+    MONO --> H2M
 ```
 
-Then start the React app:
+- **React app:** renders every screen, runs the market simulator and the trading rules, and saves each user's account in localStorage.
+- **Stock Service (8081):** owns the list of stocks. It loads 27 stocks into an in-memory H2 database at startup and serves them over REST.
+- **User Service (8082):** owns user accounts and login attempts in MySQL. It registers users, checks passwords and locks accounts after repeated failures.
+- The two services do not call each other, and each has its own database.
+- **backend-monolith (8080):** the earlier single Spring Boot application from which the services were split. It is kept to demonstrate that implementation and is **not connected to the React app**.
 
-1. Install Node.js
-2. Open the project folder in a terminal
-3. Install the required packages:
+More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-```bash
+## Project structure
+
+```
+.
+├── src/                     React app
+│   ├── pages/               One component per screen
+│   ├── components/          Layout, charts, market map, trading, tables, UI kit
+│   ├── context/             Shared state: auth, market, account, toasts
+│   ├── engine/              Trading rules and portfolio maths
+│   ├── services/            Service calls, storage, theme, market simulator
+│   ├── hooks/, utils/       Reusable hooks and helpers
+│   ├── config/              Constants and service URLs
+│   └── styles/              Design tokens (light and dark) and base styles
+├── services/
+│   ├── stock-service/       Spring Boot Stock Service (port 8081, H2)
+│   └── user-service/        Spring Boot User Service (port 8082, MySQL)
+├── backend-monolith/        Earlier standalone Spring Boot backend (port 8080, H2)
+├── docs/                    Architecture, API, database and setup guides
+│   └── screenshots/         Images used in this README
+├── index.html, vite.config.js, eslint.config.js, package.json
+└── .env.example             Optional frontend settings
+```
+
+## Getting started
+
+**Prerequisites:** Node.js 20.19+ (or 22.12+), JDK 25, MySQL 8 running on `localhost:3306`. Maven is downloaded automatically by the included wrapper.
+
+```powershell
+git clone https://github.com/atulya257/PaperTrading.git
+cd PaperTrading
 npm install
 ```
 
-4. Start the app and open http://localhost:5173:
+Start each part in its own terminal (Windows PowerShell shown; see [docs/SETUP.md](docs/SETUP.md) for macOS/Linux):
 
-```bash
+```powershell
+# 1. Stock Service (port 8081)
+cd services\stock-service
+.\mvnw.cmd spring-boot:run
+
+# 2. User Service (port 8082)
+cd services\user-service
+$env:MYSQL_PASSWORD = "<your MySQL password>"
+.\mvnw.cmd spring-boot:run
+
+# 3. React app (port 5173)
 npm run dev
 ```
 
-Without the services the app still opens with its built-in stock list and the "Try demo instantly" guest. The original single backend from Activities 4 and 5 is in `backend/` (see `backend/README.md`).
+Open http://localhost:5173 and sign up. The `tradelab_users` database and its tables are created automatically on the first start.
+
+To open the app on a phone on the same Wi-Fi, run `npm run dev:phone` instead and open the `Network:` address it prints. To run the earlier monolith on its own, see [backend-monolith/README.md](backend-monolith/README.md).
+
+Full instructions, including MySQL setup and troubleshooting: [docs/SETUP.md](docs/SETUP.md).
+
+## Environment variables
+
+| Variable | Used by | Required | Default |
+|---|---|---|---|
+| `MYSQL_PASSWORD` | User Service | Yes, unless your MySQL user has no password | empty |
+| `MYSQL_USER` | User Service | No | `root` |
+| `VITE_STOCK_SERVICE_URL` | React app | No | Port 8081 on the computer that served the page |
+| `VITE_USER_SERVICE_URL` | React app | No | Port 8082 on the computer that served the page |
+
+The service variables are read from the shell that starts the service. The two `VITE_` variables can go in a `.env.local` file; see [.env.example](.env.example). Never commit real passwords.
+
+## API overview
+
+| Service | Method | Endpoint | Purpose |
+|---|---|---|---|
+| Stock | GET | `/api/stocks` | All stocks (`?sector=IT` filters by sector) |
+| Stock | GET | `/api/stocks/{symbol}` | One stock |
+| Stock | POST | `/api/stocks` | Add a stock |
+| User | POST | `/api/users` | Sign up |
+| User | POST | `/api/users/login` | Log in |
+| User | GET | `/api/users` | All users (never includes passwords) |
+| User | GET | `/api/users/{id}` | One user |
+
+Request bodies, responses and error codes, plus the monolith's endpoints: [docs/API.md](docs/API.md). Database tables and relationships: [docs/DATABASE.md](docs/DATABASE.md).
+
+## Testing
+
+```powershell
+npm run lint                                        # ESLint on src/
+npm run build                                       # production build into dist/
+cd services\stock-service; .\mvnw.cmd test          # 5 tests
+cd services\user-service;  .\mvnw.cmd test          # 5 tests (H2 in MySQL mode, no MySQL needed)
+cd backend-monolith;       .\mvnw.cmd test          # 22 tests
+```
+
+There are no automated frontend tests yet.
+
+## Future improvements
+
+- Move portfolios, orders and watchlists from localStorage into a Portfolio service, so they follow the user across devices.
+- Issue tokens from the User Service (as the monolith does with JWT) and check them in the other services.
+- Add an API gateway so the frontend talks to a single address.
+- Add Docker Compose to start MySQL and both services with one command.
+- Add frontend tests (for example, Vitest for the trading engine) and a CI workflow that runs lint, build and the Maven tests.
+- Optionally connect a real market-data feed in place of the simulator.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Contact
+
+Questions or feedback: open an issue in this repository, or reach the author through their GitHub profile, [@atulya257](https://github.com/atulya257).

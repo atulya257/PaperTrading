@@ -1,0 +1,17 @@
+# Store text with LF line endings in the repository
+* text=auto
+
+# Shell scripts must keep LF to run on macOS/Linux; Windows scripts keep CRLF
+mvnw text eol=lf
+*.sh text eol=lf
+*.cmd text eol=crlf
+
+# Never treat these as text
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.jar binary
